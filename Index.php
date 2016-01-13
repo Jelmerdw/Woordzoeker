@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<p>Hoi dit is ons prachtige project.</p>
+<p>Hoi dit is ons mooie project.</p>
 
 <?php
 echo file_get_contents("text.txt");
