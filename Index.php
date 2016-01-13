@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 <title>Woordzoeker</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 <meta charset="UTF-8">
 </head>
 <body>
