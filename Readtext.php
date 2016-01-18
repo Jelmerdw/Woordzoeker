@@ -33,15 +33,18 @@ if($_FILES){
  //Throw an error message if the file could not be open
  $file = fopen($fileName,"r") or exit("Unable to open file!");
   
- // Reading a .txt file line by line
- while(!feof($file)) {
- echo fgets($file). "";
- }
-  
- //Reading a .txt file character by character
- while(!feof($file)) {
- echo fgetc($file);
- }
+ // Reading a .txt file
+ $variable = 1 ;
+ 
+ while(!feof($file)) 
+     {
+     $$variable = fgets($file);
+     echo $$variable;
+     echo '<br>';
+     $variable = $variable + 1 ;
+      }
+ 
+      
  fclose($file);
  }
 
