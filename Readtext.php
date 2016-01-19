@@ -8,6 +8,8 @@
 </html>
 
 
+
+
 <?php
 
 if($_FILES){
@@ -34,16 +36,17 @@ if($_FILES){
  $file = fopen($fileName,"r") or exit("Unable to open file!");
   
  // Reading a .txt file
- $variable = 1 ;
- 
+ $Woordzoeker = array();
  while(!feof($file)) 
      {
-     $$variable = fgets($file);
-     echo $$variable;
-     echo '<br>';
-     $variable = $variable + 1 ;
+     $regel = fgets($file);
+     $regel_trim1 = rtrim($regel, "\n") ;
+     $regel_trim2 = rtrim($regel_trim1, "\r") ;
+     $lijn =  str_split($regel_trim2) ;
+     
+     $Woordzoeker[] = array($lijn);
       }
- 
+ print_r($Woordzoeker) ; 
       
  fclose($file);
  }
