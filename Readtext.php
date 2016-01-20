@@ -42,11 +42,12 @@ if($_FILES){
      $regel = fgets($file);
      $regel_trim1 = rtrim($regel, "\n") ;
      $regel_trim2 = rtrim($regel_trim1, "\r") ;
-     $lijn =  str_split($regel_trim2) ;
-     
-     $Woordzoeker[] = array($lijn);
-      }
- print_r($Woordzoeker) ; 
+     $lijn =  array(str_split($regel_trim2)) ;
+     print_r($lijn) ; 
+     echo '<br>' ;
+             
+     }
+ 
       
  fclose($file);
  
@@ -56,6 +57,7 @@ if($_FILES){
  while($nummer < 6)
     {
  echo $lijn[$nummer] ;
+ echo $nummer ;
  $nummer++ ;
     }
  
