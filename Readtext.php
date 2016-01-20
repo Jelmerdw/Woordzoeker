@@ -58,7 +58,7 @@ if($_FILES){
     echo $lijn[$nummer] ;
     $nummer++ ;
     }
-    
+    test
  }   
 
  else {
