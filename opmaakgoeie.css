@@ -1,0 +1,29 @@
+#woord1 {
+    width : 0px;
+    height : 0px;
+    color : #000000;
+}
+
+#woord1 :hover {
+    color : #ff0000;
+}
+
+#woord2 {
+    width : 0px;
+    height : 0px;
+    color : #000000;
+}
+
+#woord2 :hover {
+    color : #ff0000;
+}
+
+#woord3 {
+    width : 0px;
+    height : 0px;
+    color : #000000;
+}
+
+#woord3 :hover {
+    color : #ff0000;
+}

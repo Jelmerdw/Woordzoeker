@@ -18,6 +18,4 @@ echo file_get_contents("text.txt");
   echo $data ;
  ?>
 
-$tekst = '-raam- ------ ------ ------ ------ ------'
-
 </body>
