@@ -4,6 +4,7 @@
 </head>
 
 <body>
+    <div id="alles">
     <div id="woord1">
         <p>Raam</p>
     </div>
@@ -47,3 +48,4 @@
         </tr>
     </table>
 </body>
+</div>
