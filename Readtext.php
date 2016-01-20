@@ -35,31 +35,23 @@ if($_FILES){
  //Throw an error message if the file could not be open
  $file = fopen($fileName,"r") or exit("Unable to open file!");
   
- // Reading a .txt file
+ 
+
+// Reading a .txt file
 
  while(!feof($file)) 
      {
      $regel = fgets($file);
      $regel_trim1 = rtrim($regel, "\n") ;
      $regel_trim2 = rtrim($regel_trim1, "\r") ;
-     $lijn =  array(str_split($regel_trim2)) ;
-     print_r($lijn) ; 
-     echo '<br>' ;
-             
+     $woordzoeker[] = str_split($regel_trim2) ;
+           
      }
  
       
  fclose($file);
- 
-  echo '<br><br>' ;
- $nummer = 0 ;
- 
- while($nummer < 6)
-    {
- echo $lijn[$nummer] ;
- echo $nummer ;
- $nummer++ ;
-    }
+ print"<pre>";
+ print_r($woordzoeker);
  
  
  }
@@ -69,4 +61,3 @@ if($_FILES){
  echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
  }
 }
-?>
