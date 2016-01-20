@@ -36,7 +36,7 @@ if($_FILES){
  $file = fopen($fileName,"r") or exit("Unable to open file!");
   
  // Reading a .txt file
- $Woordzoeker = array();
+
  while(!feof($file)) 
      {
      $regel = fgets($file);
@@ -49,7 +49,17 @@ if($_FILES){
  print_r($Woordzoeker) ; 
       
  fclose($file);
- }
+ 
+ echo '<br><br>' ;
+ $nummer = 0 ;
+ 
+ while($nummer < 6)
+    {
+    echo $lijn[$nummer] ;
+    $nummer++ ;
+    }
+    
+ }   
 
  else {
  if(isset($_FILES) && $_FILES['file']['type'] == '')
