@@ -50,16 +50,17 @@ if($_FILES){
       
  fclose($file);
  
- echo '<br><br>' ;
+  echo '<br><br>' ;
  $nummer = 0 ;
  
  while($nummer < 6)
     {
-    echo $lijn[$nummer] ;
-    $nummer++ ;
+ echo $lijn[$nummer] ;
+ $nummer++ ;
     }
-    test
- }   
+ 
+ 
+ }
 
  else {
  if(isset($_FILES) && $_FILES['file']['type'] == '')
