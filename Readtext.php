@@ -39,23 +39,41 @@ if($_FILES){
 
 // Reading a .txt file
 
+ $aantal_regels = 0;
+ 
  while(!feof($file)) 
      {
-     $regel = fgets($file);
-     $regel_trim1 = rtrim($regel, "\n") ;
-     $regel_trim2 = rtrim($regel_trim1, "\r") ;
-     $woordzoeker[] = str_split($regel_trim2) ;
-           
+     $lijn = fgets($file);
+     $lijn_trim = rtrim($lijn, "\n") ;
+     $lijn_trim_trim = rtrim($lijn_trim, "\r") ;
+     $aantal_kolommen = strlen($lijn_trim_trim) ;
+     $woordzoeker[] = str_split($lijn_trim_trim) ;
+     $aantal_regels = $aantal_regels + 1;
      }
  
       
  fclose($file);
- print"<pre>";
- print_r($woordzoeker);
+ //print"<pre>";
+ //print_r($woordzoeker);
+ 
+ $regel = 0 ;
+ $kolom = 0 ;
+ 
+ while ($regel < $aantal_regels)
+    {
+        while ($kolom < $aantal_kolommen)
+            {
+            echo $woordzoeker[$regel][$kolom] ;
+            $kolom = $kolom + 1 ;
+            }
+        echo "<br>" ;    
+        $kolom = 0 ;
+        $regel = $regel + 1 ;
+    }    
+ 
  
  
  }
-
  else {
  if(isset($_FILES) && $_FILES['file']['type'] == '')
  echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
