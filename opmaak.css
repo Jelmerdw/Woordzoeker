@@ -27,3 +27,7 @@
 #woord3 :hover {
     color : #ff0000;
 }
+
+#alles table :hover {
+    color : #ff0000;
+}
