@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <link href="opmaak.css" rel="stylesheet"/>
+    </head>
 <body> 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 <input type="file" name="file" size="60" />
@@ -79,3 +82,29 @@ if($_FILES){
  echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
  }
 }
+echo "<br><br>";
+
+echo "<div id="woordzoeker">";
+    function build_table($woordzoeker){
+    // start table
+    $html = '<table>';
+  
+    // data rows
+    foreach($woordzoeker as $key=>$value){
+        $html .= '<tr>';
+        foreach($value as $key2=>$value2){
+            $html .= '<td>' . $value2 . '</td>';
+        }
+        $html .= '</tr>';
+    }
+
+    // finish table and return it
+
+    $html .= '</table>';
+    return $html;
+}
+
+echo build_table($woordzoeker);
+echo "</div>";
+
+?>
