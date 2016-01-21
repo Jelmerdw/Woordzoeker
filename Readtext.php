@@ -29,8 +29,7 @@ if($_FILES){
  echo "<span>Woordzoeker ondersteunt alleen .txt files! Kies een text bestand.</span>";
 
  exit();
- } 
- echo "<center><span id='Content'>Inhoud van ".$_FILES['file']['name'].":</span></center>";
+ }
  
  //Getting and storing the temporary file name of the uploaded file
  $fileName = $_FILES['file']['tmp_name'];
@@ -59,31 +58,22 @@ if($_FILES){
  //print"<pre>";
  //print_r($woordzoeker);
  
- $regel = 0 ;
- $kolom = 0 ;
+ //$regel = 0 ;
+ //$kolom = 0 ;
  
- while ($regel < $aantal_regels)
-    {
-        while ($kolom < $aantal_kolommen)
-            {
-            echo $woordzoeker[$regel][$kolom] ;
-            $kolom = $kolom + 1 ;
-            }
-        echo "<br>" ;    
-        $kolom = 0 ;
-        $regel = $regel + 1 ;
-    }    
+ //while ($regel < $aantal_regels)
+    //{
+        //while ($kolom < $aantal_kolommen)
+            //{
+            //echo $woordzoeker[$regel][$kolom] ;
+            //$kolom = $kolom + 1 ;
+            //}
+        //echo "<br>" ;    
+        //$kolom = 0 ;
+        //$regel = $regel + 1 ;
+    //}    
  
- 
- 
- }
- else {
- if(isset($_FILES) && $_FILES['file']['type'] == '')
- echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
- }
-}
-echo "<br><br>";
-    function build_table($woordzoeker){
+function build_table($woordzoeker){
     // start table
     $html = '<table>';
   
@@ -101,7 +91,13 @@ echo "<br><br>";
     $html .= '</table>';
     return $html;
 }
-
-echo build_table($woordzoeker);
-
+    
+ echo build_table($woordzoeker);
+ 
+ }
+ else {
+ if(isset($_FILES) && $_FILES['file']['type'] == '')
+ echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
+ }
+}
 ?>
