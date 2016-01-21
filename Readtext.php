@@ -83,8 +83,6 @@ if($_FILES){
  }
 }
 echo "<br><br>";
-
-echo "<div id="woordzoeker">";
     function build_table($woordzoeker){
     // start table
     $html = '<table>';
@@ -105,6 +103,5 @@ echo "<div id="woordzoeker">";
 }
 
 echo build_table($woordzoeker);
-echo "</div>";
 
 ?>
