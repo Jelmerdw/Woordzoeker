@@ -41,21 +41,28 @@ if($_FILES){
 
 // Reading a .txt file
 
- $aantal_regels = 0;
+ //$aantal_regels = 0;
+ $einde = 0 ;
  
  while(!feof($file)) 
      {
      $lijn = fgets($file);
-     $lijn_trim = rtrim($lijn, "\n") ;
-     $lijn_trim_trim = rtrim($lijn_trim, "\r") ;
-     $aantal_kolommen = strlen($lijn_trim_trim) ;
-     $woordzoeker[] = str_split($lijn_trim_trim) ;
-     $aantal_regels = $aantal_regels + 1;
+     $karakters = strlen($lijn);
+     if ($karakters == 2){$einde = 1 ;}
+        if ($einde == 0){   
+     
+        $lijn_trim = rtrim($lijn, "\n") ;
+        $lijn_trim_trim = rtrim($lijn_trim, "\r") ;
+        //$aantal_kolommen = strlen($lijn_trim_trim) ;
+        $woordzoeker[] = str_split($lijn_trim_trim) ;
+        //$aantal_regels = $aantal_regels + 1;
+        }
+        
      }
  
-      
- fclose($file);
- //print"<pre>";
+     fclose($file);
+ 
+//print"<pre>";
  //print_r($woordzoeker);
  
  //$regel = 0 ;
