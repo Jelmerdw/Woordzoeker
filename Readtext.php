@@ -1,6 +1,8 @@
 <html>
     <head>
         <link href="opmaak.css" rel="stylesheet"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        
     </head>
 <body> 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
@@ -43,20 +45,30 @@ if($_FILES){
 
  //$aantal_regels = 0;
  $einde = 0 ;
+ $aantal_woorden = 0;
  
  while(!feof($file)) 
      {
      $lijn = fgets($file);
      $karakters = strlen($lijn);
      if ($karakters == 2){$einde = 1 ;}
-        if ($einde == 0){   
-     
+        
+        if ($einde == 0)
+        {   
         $lijn_trim = rtrim($lijn, "\n") ;
         $lijn_trim_trim = rtrim($lijn_trim, "\r") ;
         //$aantal_kolommen = strlen($lijn_trim_trim) ;
         $woordzoeker[] = str_split($lijn_trim_trim) ;
         //$aantal_regels = $aantal_regels + 1;
         }
+        else 
+        {
+        $lijn_trim = rtrim($lijn, "\n") ;
+        $lijn_trim_trim = rtrim($lijn_trim, "\r") ;
+        $woorden[] = $lijn_trim_trim ;
+        $aantal_woorden = $aantal_woorden + 1 ;
+        }
+        
         
      }
  
@@ -98,10 +110,25 @@ function build_table($woordzoeker){
     $html .= '</table>';
     return $html;
 }
-    
  echo build_table($woordzoeker);
  
- }
+ $gegeven_woorden = 1;
+ while($gegeven_woorden < $aantal_woorden)
+    {
+    echo $woorden[$gegeven_woorden];
+    echo '<br>';
+    $gegeven_woorden = $gegeven_woorden + 1 ;
+    }
+
+ //http://www.w3schools.com/JQuery/tryit.asp?filename=tryjquery_event_hover
+    
+    
+    
+    
+    
+    
+    
+    }
  else {
  if(isset($_FILES) && $_FILES['file']['type'] == '')
  echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
