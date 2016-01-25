@@ -4,16 +4,19 @@
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
         <link href="opmaak.css" rel="stylesheet"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script>
-            $(document).ready(function ()
-            {
-                $(".0").mouseover(function () {
-                    $("td").css("background-color", "yellow");
-                });
-                $(".0").mouseout(function () {
-                    $("td").css("background-color", "white");
-                });
-            });
+        //<script>
+            //$(document).ready(function ()
+            //{
+            //$(".0").mouseover(function () {
+            //$(".cel11").css("background-color", "yellow");
+            //$(".cel12").css("background-color", "yellow");
+            //$(".cel13").css("background-color", "yellow");
+            //$(".cel14").css("background-color", "yellow");
+            //});
+            //$(".0").mouseout(function () {
+            //$("td").css("background-color", "white");
+            //});
+            //});
         </script>
 
 
@@ -55,7 +58,7 @@ if ($_FILES) {
 
 
 // Reading a .txt file
-        //$aantal_regels = 0;
+        $aantal_regels = 0;
         $einde = 0;
         $aantal_woorden = 0;
 
@@ -69,9 +72,10 @@ if ($_FILES) {
             if ($einde == 0) {
                 $lijn_trim = rtrim($lijn, "\n");
                 $lijn_trim_trim = rtrim($lijn_trim, "\r");
-                //$aantal_kolommen = strlen($lijn_trim_trim) ;
-                $woordzoeker[] = str_split($lijn_trim_trim);
-                //$aantal_regels = $aantal_regels + 1;
+                $aantal_kolommen = strlen($lijn_trim_trim);
+                $teken = str_split($lijn_trim_trim);
+                $woordzoeker[] = $teken;
+                $aantal_regels = $aantal_regels + 1;
             } else {
                 $lijn_trim = rtrim($lijn, "\n");
                 $lijn_trim_trim = rtrim($lijn_trim, "\r");
@@ -82,7 +86,7 @@ if ($_FILES) {
 
         fclose($file);
 
-//print"<pre>";
+        //print"<pre>";
         //print_r($woordzoeker);
         //$regel = 0 ;
         //$kolom = 0 ;
@@ -101,12 +105,14 @@ if ($_FILES) {
         function build_table($woordzoeker) {
             // start table
             $html = '<table>';
-
+            $getal0 = 0;
             // data rows
             foreach ($woordzoeker as $key => $value) {
                 $html .= '<tr>';
                 foreach ($value as $key2 => $value2) {
-                    $html .= '<td>' . $value2 . '</td>';
+
+                    $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
+                    $getal0 = $getal0 + 1;
                 }
                 $html .= '</tr>';
             }
@@ -120,19 +126,39 @@ if ($_FILES) {
         echo build_table($woordzoeker);
 
         $gegeven_woorden = 1;
-        $getal = 0;
+        $getal1 = 0;
         while ($gegeven_woorden < $aantal_woorden) {
-            echo "<p class=" . $getal . ">" . $woorden[$gegeven_woorden] . "</p class=" . $getal . ">";
+            echo "<p class='" . $getal1 . "'>" . $woorden[$gegeven_woorden] . "</p>";
             echo '<br>';
-            $getal = $getal + 1;
-            while ($gegeven_woorden < $aantal_woorden) {
-                echo $woorden[$gegeven_woorden];
-                echo '<br>';
-                $gegeven_woorden = $gegeven_woorden + 1;
-            }
-
-            //http://www.w3schools.com/JQuery/tryit.asp?filename=tryjquery_event_hover
+            $getal1 = $getal1 + 1;
+            $gegeven_woorden = $gegeven_woorden + 1;
         }
+
+        $kolom = 0;
+        $regel = 0;
+        while ($regel < $aantal_regels) {
+            $kolom = 0;
+            while ($kolom < $aantal_kolommen) {
+                if ($woordzoeker[$regel][$kolom] == "a") {
+                    echo $regel;
+                    echo $kolom;
+                    $cel = 11; //$regel*$aantal_kolommen + $kolom
+                    ?>
+                    <script type="text/javascript">
+                        $(".cel11").css("background-color", "yellow");
+                    </script>
+                    <?php
+                    $kolom = $kolom + 1;
+                } else {
+                    $kolom = $kolom + 1;
+                }
+            }
+            $regel = $regel + 1;
+        }
+
+        //print"<pre>";
+        //print_r($woordzoeker);
+        
     } else {
         if (isset($_FILES) && $_FILES['file']['type'] == '')
             echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
