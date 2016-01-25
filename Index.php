@@ -120,11 +120,17 @@ if ($_FILES) {
         echo build_table($woordzoeker);
 
         $gegeven_woorden = 1;
+<<<<<<< HEAD
         $getal = 0;
         while ($gegeven_woorden < $aantal_woorden) {
             echo "<p class=" . $getal . ">" . $woorden[$gegeven_woorden] . "</p class=" . $getal . ">";
             echo '<br>';
             $getal = $getal + 1;
+=======
+        while ($gegeven_woorden < $aantal_woorden) {
+            echo $woorden[$gegeven_woorden];
+            echo '<br>';
+>>>>>>> 47d2a15ffd4c77076c5447b9dd00690a52ae6970
             $gegeven_woorden = $gegeven_woorden + 1;
         }
 
