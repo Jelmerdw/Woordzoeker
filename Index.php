@@ -4,7 +4,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
         <link href="opmaak.css" rel="stylesheet"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        //<script>
+        <script>
             //$(document).ready(function ()
             //{
             //$(".0").mouseover(function () {
