@@ -138,35 +138,54 @@ if ($_FILES) {
         $herhalingen = strlen($zoek);
         $uitgevoerd = 0;
         $arrayzoek = str_split($zoek);
-        print_r($arrayzoek);
         $kolom = 0;
         $regel = 0;
-        
-        while ($regel < $aantal_regels) {
-            $kolom = 0;
-            while ($kolom < $aantal_kolommen) {
-                if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-                    echo $regel;
-                    echo $kolom;
-                    $cel = $regel*$aantal_kolommen + $kolom;
-                    ?>
-                    <script type="text/javascript">
-                        $(".cel<?php echo $cel; ?>").css("background-color", "yellow");
-                    </script>
-                    <?php
-                    $kolom = $kolom + 1;
-                    if ($uitgevoerd < $herhalingen - 1)
-                    {$uitgevoerd = $uitgevoerd + 1;}
-                } else {
-                    $kolom = $kolom + 1;
-                }
-            }
-            $regel = $regel + 1;
-        }
+        $einde = 0;
 
+        while ($uitgevoerd < $herhalingen) {
+            $regel = 0;
+            unset($array_cel);
+            while ($regel < $aantal_regels) {
+                $kolom = 0;
+                while ($kolom < $aantal_kolommen and $einde == 0) {
+                    if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+                        //echo $regel;
+                        //echo $kolom;
+                        $cel = $regel * $aantal_kolommen + $kolom;
+                        //$array_cel[] = $cel
+                        ?>
+                        <script type="text/javascript">
+                            $(".cel<?php echo $cel; ?>").css("background-color", "yellow");
+                        </script>
+                        <?php
+                        $kolom = $kolom + 1;
+                        if ($uitgevoerd < $herhalingen) {
+                            $uitgevoerd = $uitgevoerd + 1;
+                        }
+                        if ($uitgevoerd == 4) {
+                            $einde = 1;
+                        }
+                    } else {
+                        $kolom = $kolom + 1;
+                        $uitgevoerd = 0;
+                        $cel = 0;
+                        while ($cel < 100) {
+                            ?>
+                            <script type="text/javascript">
+                                $(".cel<?php echo $cel; ?>").css("background-color", "white");
+                            </script>
+                            <?php
+                            $cel = $cel + 1;
+                        }
+                    }
+                }
+                $regel = $regel + 1;
+            }
+            $uitgevoerd = $uitgevoerd + 1;
+            //$letter[] = $array_cel;
+        }
         //print"<pre>";
-        //print_r($woordzoeker);
-        
+        //print_r($letter);
     } else {
         if (isset($_FILES) && $_FILES['file']['type'] == '')
             echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
