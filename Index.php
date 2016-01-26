@@ -134,12 +134,18 @@ if ($_FILES) {
             $gegeven_woorden = $gegeven_woorden + 1;
         }
 
+        $zoek = $woorden[1];
+        $herhalingen = strlen($zoek);
+        $uitgevoerd = 0;
+        $arrayzoek = str_split($zoek);
+        print_r($arrayzoek);
         $kolom = 0;
         $regel = 0;
+        
         while ($regel < $aantal_regels) {
             $kolom = 0;
             while ($kolom < $aantal_kolommen) {
-                if ($woordzoeker[$regel][$kolom] == "r") {
+                if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
                     echo $regel;
                     echo $kolom;
                     $cel = $regel*$aantal_kolommen + $kolom;
@@ -149,6 +155,8 @@ if ($_FILES) {
                     </script>
                     <?php
                     $kolom = $kolom + 1;
+                    if ($uitgevoerd < $herhalingen - 1)
+                    {$uitgevoerd = $uitgevoerd + 1;}
                 } else {
                     $kolom = $kolom + 1;
                 }
