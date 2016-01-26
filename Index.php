@@ -139,13 +139,13 @@ if ($_FILES) {
         while ($regel < $aantal_regels) {
             $kolom = 0;
             while ($kolom < $aantal_kolommen) {
-                if ($woordzoeker[$regel][$kolom] == "a") {
+                if ($woordzoeker[$regel][$kolom] == "r") {
                     echo $regel;
                     echo $kolom;
-                    $cel = 11; //$regel*$aantal_kolommen + $kolom
+                    $cel = $regel*$aantal_kolommen + $kolom;
                     ?>
                     <script type="text/javascript">
-                        $(".cel11").css("background-color", "yellow");
+                        $(".cel<?php echo $cel; ?>").css("background-color", "yellow");
                     </script>
                     <?php
                     $kolom = $kolom + 1;
