@@ -1,3 +1,8 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <html>
     <head>
         <title>Woordzoeker</title>
@@ -5,18 +10,32 @@
         <link href="opmaak.css" rel="stylesheet"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script>
-            //$(document).ready(function ()
-            //{
-            //$(".0").mouseover(function () {
-            //$(".cel11").css("background-color", "yellow");
-            //$(".cel12").css("background-color", "yellow");
-            //$(".cel13").css("background-color", "yellow");
-            //$(".cel14").css("background-color", "yellow");
-            //});
-            //$(".0").mouseout(function () {
+            $(document).ready(function ()
+            {
+            $(".woord0").mouseover(function () {
+            <?php
+            $keuze = 1;
+            $_SESSION["keuze"] = $keuze;
+            ?>
+            $("#div_loader").load("zoeker.php");
+            });
+            
+            //$(".woord0").mouseout(function () {
             //$("td").css("background-color", "white");
             //});
+            
+            //$(".woord2").mouseover(function () {
+            //<?php
+            //$keuze = 3;
+            //$_SESSION["keuze"] = $keuze;
+            //?>
+            //$("#div_loader").load("zoeker.php");
             //});
+            
+            //$(".woord2").mouseout(function () {
+            //$("td").css("background-color", "white");
+            //});
+            });
         </script>
 
 
@@ -73,13 +92,17 @@ if ($_FILES) {
                 $lijn_trim = rtrim($lijn, "\n");
                 $lijn_trim_trim = rtrim($lijn_trim, "\r");
                 $aantal_kolommen = strlen($lijn_trim_trim);
+                $_SESSION["aantal_kolommen"] = $aantal_kolommen;
                 $teken = str_split($lijn_trim_trim);
                 $woordzoeker[] = $teken;
+                $_SESSION["woordzoeker"] = $woordzoeker;
                 $aantal_regels = $aantal_regels + 1;
+                $_SESSION["aantal_regel"] = $aantal_regels;
             } else {
                 $lijn_trim = rtrim($lijn, "\n");
                 $lijn_trim_trim = rtrim($lijn_trim, "\r");
                 $woorden[] = $lijn_trim_trim;
+                $_SESSION["woorden"] = $woorden;
                 $aantal_woorden = $aantal_woorden + 1;
             }
         }
@@ -128,62 +151,12 @@ if ($_FILES) {
         $gegeven_woorden = 1;
         $getal1 = 0;
         while ($gegeven_woorden < $aantal_woorden) {
-            echo "<p class='" . $getal1 . "'>" . $woorden[$gegeven_woorden] . "</p>";
+            echo "<p class=woord" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
             echo '<br>';
             $getal1 = $getal1 + 1;
             $gegeven_woorden = $gegeven_woorden + 1;
         }
 
-        $zoek = $woorden[1];
-        $herhalingen = strlen($zoek);
-        $uitgevoerd = 0;
-        $arrayzoek = str_split($zoek);
-        $kolom = 0;
-        $regel = 0;
-        $einde = 0;
-
-        while ($uitgevoerd < $herhalingen) {
-            $regel = 0;
-            unset($array_cel);
-            while ($regel < $aantal_regels) {
-                $kolom = 0;
-                while ($kolom < $aantal_kolommen and $einde == 0) {
-                    if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-                        //echo $regel;
-                        //echo $kolom;
-                        $cel = $regel * $aantal_kolommen + $kolom;
-                        //$array_cel[] = $cel
-                        ?>
-                        <script type="text/javascript">
-                            $(".cel<?php echo $cel; ?>").css("background-color", "yellow");
-                        </script>
-                        <?php
-                        $kolom = $kolom + 1;
-                        if ($uitgevoerd < $herhalingen) {
-                            $uitgevoerd = $uitgevoerd + 1;
-                        }
-                        if ($uitgevoerd == 4) {
-                            $einde = 1;
-                        }
-                    } else {
-                        $kolom = $kolom + 1;
-                        $uitgevoerd = 0;
-                        $cel = 0;
-                        while ($cel < 100) {
-                            ?>
-                            <script type="text/javascript">
-                                $(".cel<?php echo $cel; ?>").css("background-color", "white");
-                            </script>
-                            <?php
-                            $cel = $cel + 1;
-                        }
-                    }
-                }
-                $regel = $regel + 1;
-            }
-            $uitgevoerd = $uitgevoerd + 1;
-            //$letter[] = $array_cel;
-        }
         //print"<pre>";
         //print_r($letter);
     } else {
@@ -192,3 +165,5 @@ if ($_FILES) {
     }
 }
 ?>
+
+<html/><div id="div_loader"></div></html>
