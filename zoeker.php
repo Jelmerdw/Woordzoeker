@@ -5,6 +5,7 @@ session_start();
 <?php
 $woorden =  $_SESSION["woorden"];
 $keuze = $_SESSION["keuze"];
+$keuze = $_GET['keuze'];
 $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);
 $arrayzoek = str_split($zoek);
@@ -38,14 +39,14 @@ $einde = 0;
                         if ($uitgevoerd < $herhalingen) {
                             $uitgevoerd = $uitgevoerd + 1;
                         }
-                        if ($uitgevoerd == 4) {
+                        if ($uitgevoerd == $herhalingen) {
                             $einde = 1;
                         }
                     } else {
                         $kolom = $kolom + 1;
                         $uitgevoerd = 0;
                         $cel = 0;
-                        while ($cel < 100) {
+                        while ($cel < $aantal_kolommen*$aantal_regels) {
                             ?>
                             <script type="text/javascript">
                                 $(".cel<?php echo $cel; ?>").css("background-color", "white");
@@ -60,4 +61,6 @@ $einde = 0;
             $uitgevoerd = $uitgevoerd + 1;
             //$letter[] = $array_cel;
         }
-?>
+
+     echo $keuze; 
+        ?>

@@ -15,26 +15,32 @@ session_start();
             $(".woord0").mouseover(function () {
             <?php
             $keuze = 1;
-            $_SESSION["keuze"] = $keuze;
+            unset($_SESSION["keuze"]);
+            $_SESSION["keuze"][0] = $keuze;
             ?>
-            $("#div_loader").load("zoeker.php");
+            $("#div_loader").load("zoeker.php?keuze=1");
+            });
             });
             
+            $(document).ready(function ()
+            {
             $(".woord0").mouseout(function () {
             $("td").css("background-color", "white");
             });
             
-            //$(".woord2").mouseover(function () {
-            //<?php
-            //$keuze = 3;
-            //$_SESSION["keuze"] = $keuze;
-            //?>
-            //$("#div_loader").load("zoeker.php");
-            //});
+            $(".woord2").mouseover(function () {
+                
+            <?php
+            $keuze = 3;
+            unset($_SESSION["keuze"]);
+            $_SESSION["keuze"][2] = $keuze;
+            ?>
+            $("#div_loader").load("zoeker.php");
+            });
             
-            //$(".woord2").mouseout(function () {
-            //$("td").css("background-color", "white");
-            //});
+            $(".woord2").mouseout(function () {
+            $("td").css("background-color", "white");
+            });
             });
         </script>
 
