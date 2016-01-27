@@ -1,33 +1,21 @@
 <?php
-
 $letters = "abcdefghijklmnopqrstuvwxyz";
-$regel = array('-', 'W');
+$regel = array('-');
 foreach($regel as $i => $W) {
-$regel = str_split("-Wat----");
+//$regel = str_split("---");
 foreach ($regel as $i => $W) {
     if ($W == '-') {
-  $l = random(0,26);
-          $regel[$i] = $letters[$l];
+      $l = rand(0,25);
+      $regel[$i] = $letters[$l];
     }  
-        $l = rand(0, 3);
-       // print_r($regel);
-        $regel[$i] = $letters[$l];
-        //print_r($regel);
-    }
+     }
 }
-$regels = FILE("bestand");
-foreach($regels as $regelNr => $data) {
-    
-    if ($data == '');{ 
-print implode("", $regel);
-//print_r($regel);
 $regels = FILE("text.txt");
-foreach ($regels as $regelNr => $data) {
-
-    if ($data == '') {
+foreach($regels as $regelNr => $data) {
+       if ($data == ''){ 
         break;
     }
     $wz[$regelNr] = $data;
+print implode("", $regel);
 }
-//print_r($wz);
 ?>
