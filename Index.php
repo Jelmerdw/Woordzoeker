@@ -20,9 +20,9 @@ session_start();
             $("#div_loader").load("zoeker.php");
             });
             
-            //$(".woord0").mouseout(function () {
-            //$("td").css("background-color", "white");
-            //});
+            $(".woord0").mouseout(function () {
+            $("td").css("background-color", "white");
+            });
             
             //$(".woord2").mouseover(function () {
             //<?php
