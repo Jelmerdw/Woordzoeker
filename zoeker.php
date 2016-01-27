@@ -4,7 +4,6 @@ session_start();
 ?>
 <?php
 $woorden =  $_SESSION["woorden"];
-$keuze = $_SESSION["keuze"];
 $keuze = $_GET['keuze'];
 $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);

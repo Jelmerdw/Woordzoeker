@@ -12,34 +12,15 @@ session_start();
         <script>
             $(document).ready(function ()
             {
-            $(".woord0").mouseover(function () {
-            <?php
-            $keuze = 1;
-            unset($_SESSION["keuze"]);
-            $_SESSION["keuze"][0] = $keuze;
-            ?>
-            $("#div_loader").load("zoeker.php?keuze=1");
-            });
-            });
-            
-            $(document).ready(function ()
-            {
-            $(".woord0").mouseout(function () {
-            $("td").css("background-color", "white");
-            });
-            
-            $(".woord2").mouseover(function () {
+                    $("p").hover(function () {
+                    var Class = $(this).attr("class");
+                    var Class2 ='"zoeker.php?keuze='+Class+'"'
+                    //alert(Class2);
                 
-            <?php
-            $keuze = 3;
-            unset($_SESSION["keuze"]);
-            $_SESSION["keuze"][2] = $keuze;
-            ?>
-            $("#div_loader").load("zoeker.php");
-            });
-            
-            $(".woord2").mouseout(function () {
-            $("td").css("background-color", "white");
+        
+                $('.' + Class).hover(function () {
+                $("#div_loader").load(Class2);})
+
             });
             });
         </script>
@@ -155,9 +136,9 @@ if ($_FILES) {
         echo build_table($woordzoeker);
 
         $gegeven_woorden = 1;
-        $getal1 = 0;
+        $getal1 = 1;
         while ($gegeven_woorden < $aantal_woorden) {
-            echo "<p class=woord" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
+            echo "<p class=" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
             echo '<br>';
             $getal1 = $getal1 + 1;
             $gegeven_woorden = $gegeven_woorden + 1;
