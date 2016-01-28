@@ -5,6 +5,12 @@ session_start();
 <?php
 $woorden =  $_SESSION["woorden"];
 $keuze = $_GET['keuze'];
+
+if ($keuze == 3)
+{$keuze = 3;}
+else {$keuze = 1;}
+
+
 $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);
 $arrayzoek = str_split($zoek);
@@ -16,9 +22,21 @@ $uitgevoerd = 0;
 $kolom = 0;
 $regel = 0;
 $einde = 0;
-?>
-<?php
-      while ($uitgevoerd < $herhalingen) {
+
+function kleurCel($cel, $kleur) {
+    echo '<script type="text/javascript">';
+    echo ' $(".cel' . $cel . '").css("background-color", "'. $kleur. '");'; 
+    echo '</script>';
+                       
+}
+
+
+//print "<pre>";print_r($_SESSION); print "</pre>";
+print "herhalingen $herhalingen";
+//exit;
+$teller = 0;
+      while ($uitgevoerd < $herhalingen || $teller < 10) {
+          $teller++;
             $regel = 0;
             //unset($array_cel);
             while ($regel < $aantal_regels) {
@@ -28,18 +46,18 @@ $einde = 0;
                         //echo $regel;
                         //echo $kolom;
                         $cel = $regel * $aantal_kolommen + $kolom;
-                        //$array_cel[] = $cel
-                        ?>
-                        <script type="text/javascript">
-                            $(".cel<?php echo $cel; ?>").css("background-color", "yellow");
-                        </script>
-                        <?php
+                        // $array_cel[] = $cel;
+                        kleurCel($cel, 'yellow'); 
+                        //<script type="text/javascript">
+                        //    $(".cel<?php echo $cel; ? >").css("background-color", "yellow");
+                        //</ script>
                         $kolom = $kolom + 1;
                         if ($uitgevoerd < $herhalingen) {
                             $uitgevoerd = $uitgevoerd + 1;
                         }
                         if ($uitgevoerd == $herhalingen) {
                             $einde = 1;
+                            break;  // leave inner while loop
                         }
                     } else {
                         $kolom = $kolom + 1;

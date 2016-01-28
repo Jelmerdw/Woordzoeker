@@ -12,16 +12,22 @@ session_start();
         <script>
             $(document).ready(function ()
             {
-                    $("p").hover(function () {
+                    $("p").mouseover(function () {
                     var Class = $(this).attr("class");
-                    var Class2 ='"zoeker.php?keuze='+Class+'"'
+                    console.log(Class);
+                    
+                    var Class2 ='zoeker.php?keuze='+Class+''
                     //alert(Class2);
+                    console.log(Class2);
                 
         
-                $('.' + Class).hover(function () {
-                $("#div_loader").load(Class2);})
+                //$('.' + Class).hover(function () {
+                    $("#div_loader").load(Class2);
+                    //$("#div_loader").load("zoeker.php?keuze=3");})
+                    //$("#div_loader").load("zoeker.php?keuze=1");
+                    //$("#div_loader").load("zoeker.php?keuze=3");
 
-            });
+                });
             });
         </script>
 
