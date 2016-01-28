@@ -5,9 +5,9 @@ am----o---
 --a------n
 --n------d
 ---raam---
-----------
+----bal---
 
 raam
-banaan
+bal
 voer
 rand
