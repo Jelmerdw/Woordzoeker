@@ -1,3 +1,9 @@
+body {
+    background-color: #006499;
+}
+//#body {
+//    text-align: center; 
+//}
 td {
     padding: 1px;
     text-align: center;
@@ -9,5 +15,6 @@ table, td {
     border: solid 1px #000000;
 }
 table {
+    background-color: #FFFFFF;
     border-collapse: collapse;
 }
