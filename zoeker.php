@@ -30,27 +30,41 @@ $kolom = 0;
 $regel = 0;
 $einde = 0;
 
-function gevonden($regel, $aantal_kolommen, $kolom) {
-    global $regel, $aantal_kolommen, $kolom;
-    
+function regelplaats(&$regel, &$aantal_regels, &$kolom) {
+    while ($regel < $aantal_regels) {
+        $kolom = 0;
+        zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+        $regel = $regel + 1;
+    }
+}
+
+function zoek(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
+    while ($kolom < $aantal_kolommen and $einde == 0) {
+        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+            gevonden($regel, $aantal_kolommen, $kolom);
+        } else {
+            niet_gevonden($kolom, $uitgevoerd, $cel);
+        }
+    }
+}
+
+function gevonden(&$regel, &$aantal_kolommen, &$kolom) {
     $cel = $regel * $aantal_kolommen + $kolom;
     kleurCel($cel, 'yellow');
     $kolom = $kolom + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
 }
 
-function niet_gevonden($kolom, $uitgevoerd, $cel) {
-    global $kolom, $uitgevoerd, $cel;
-    
+function niet_gevonden(&$kolom, &$uitgevoerd, &$cel) {
     $kolom = $kolom + 1;
     $uitgevoerd = 0;
     $cel = 0;
     herstel($cel, $aantal_klommen, $aantal_regels);
 }
 
-function uitvoeringen($uitgevoerd, $herhalingen, $einde) {
+function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
     global $uitgevoerd, $herhalingen, $einde;
-    
+
     if ($uitgevoerd < $herhalingen) {
         $uitgevoerd = $uitgevoerd + 1;
     }
@@ -59,9 +73,9 @@ function uitvoeringen($uitgevoerd, $herhalingen, $einde) {
     }
 }
 
-function herstel($cel, $aantal_klommen, $aantal_regels) {
+function herstel(&$cel, &$aantal_klommen, &$aantal_regels) {
     global $cel, $aantal_kolommen, $aantal_regels;
-    
+
     while ($cel < $aantal_kolommen * $aantal_regels) {
         kleurCel($cel, 'white');
         $cel = $cel + 1;
@@ -82,33 +96,35 @@ function kleurCel($cel, $kleur) {
 $teller = 0;
 while ($uitgevoerd < $herhalingen) {
     $regel = 0;
+    //regelplaats($regel, $aantal_regels, $kolom);
     while ($regel < $aantal_regels) {
         $kolom = 0;
-        while ($kolom < $aantal_kolommen and $einde == 0) {
-            if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-                gevonden($regel, $aantal_kolommen, $kolom);
-                //$cel = $regel * $aantal_kolommen + $kolom;
-                //kleurCel($cel, 'yellow');
-                //$kolom = $kolom + 1;
-                //uitvoeringen($uitgevoerd, $herhalingen, $einde);
-                //if ($uitgevoerd < $herhalingen) {
-                //$uitgevoerd = $uitgevoerd + 1;
-                //}
-                //if ($uitgevoerd == $herhalingen) {
-                //$einde = 1;
-                //}
-            } else {
-                niet_gevonden($kolom, $uitgevoerd, $cel);
-                ///$kolom = $kolom + 1;
-                //$uitgevoerd = 0;
-                //$cel = 0;
-                //herstel($cel, $aantal_klommen, $aantal_regels);
-                //while ($cel < $aantal_kolommen * $aantal_regels) {
-                //kleurCel($cel, 'white');
-                //$cel = $cel + 1;
-                //}
-            }
-        }
+        zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+        //while ($kolom < $aantal_kolommen and $einde == 0) {
+        //if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+        //gevonden($regel, $aantal_kolommen, $kolom);
+        //$cel = $regel * $aantal_kolommen + $kolom;
+        //kleurCel($cel, 'yellow');
+        //$kolom = $kolom + 1;
+        //uitvoeringen($uitgevoerd, $herhalingen, $einde);
+        //if ($uitgevoerd < $herhalingen) {
+        //$uitgevoerd = $uitgevoerd + 1;
+        //}
+        //if ($uitgevoerd == $herhalingen) {
+        //$einde = 1;
+        //}
+        //} else {
+        //niet_gevonden($kolom, $uitgevoerd, $cel);
+        ///$kolom = $kolom + 1;
+        //$uitgevoerd = 0;
+        //$cel = 0;
+        //herstel($cel, $aantal_klommen, $aantal_regels);
+        //while ($cel < $aantal_kolommen * $aantal_regels) {
+        //kleurCel($cel, 'white');
+        //$cel = $cel + 1;
+        //}
+        //}
+        //}
         $regel = $regel + 1;
     }
     $uitgevoerd = $uitgevoerd + 1;
