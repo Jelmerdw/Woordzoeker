@@ -140,13 +140,14 @@ session_start();
 
                 $gegeven_woorden = 1;
                 $getal1 = 1;
+                echo "<div id='woordjes'>";
                 while ($gegeven_woorden < $aantal_woorden) {
                     echo "<p class=" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
                     echo '<br>';
                     $getal1 = $getal1 + 1;
                     $gegeven_woorden = $gegeven_woorden + 1;
                 }
-
+                echo "</div>";
                 //print"<pre>";
                 //print_r($letter);
             } else {

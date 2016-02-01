@@ -1,9 +1,6 @@
 body {
-    background-color: #006499;
+    background-color: #adbcd1;
 }
-//#body {
-//    text-align: center; 
-//}
 td {
     padding: 1px;
     text-align: center;
@@ -17,4 +14,15 @@ table, td {
 table {
     background-color: #FFFFFF;
     border-collapse: collapse;
+    float: right;
+    margin-right: 600px;
+}
+#woordjes {
+    background-color: #FFFFFF;
+    border: solid 1px #000000;
+    width: 200px;
+    height: 500px;
+    float: right;
+    text-align: center;
+    margin-right: 50px;
 }
