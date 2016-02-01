@@ -5,7 +5,7 @@ foreach($regel as $i => $W) {
 //$regel = str_split("---");
 foreach ($regel as $i => $W) {
     if ($W == '-') {
-      $l = rand(0,25);
+      $l = rand(0,26);
       $regel[$i] = $letters[$l];
     }  
      }
