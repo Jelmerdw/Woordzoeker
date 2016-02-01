@@ -6,8 +6,17 @@ am----o---
 --n------d
 ---raam---
 ----bal---
+----------
+----------
 
 raam
 bal
 voer
 rand
+banaan
+ballon
+appel
+auto
+school
+gebouw
+spaghetti

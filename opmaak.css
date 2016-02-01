@@ -14,15 +14,19 @@ table, td {
 table {
     background-color: #FFFFFF;
     border-collapse: collapse;
-    float: right;
-    margin-right: 600px;
+    float: left;
 }
 #woordjes {
     background-color: #FFFFFF;
     border: solid 1px #000000;
-    width: 200px;
-    height: 500px;
-    float: right;
+    width: auto;
+    height: auto;
+    float: left;
     text-align: center;
-    margin-right: 50px;
+    margin-left: 20px;
+    padding: 10px 30px 10px 30px;
+}
+#woordjes p {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
