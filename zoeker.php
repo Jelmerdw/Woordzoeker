@@ -8,15 +8,15 @@ session_start();
 $woorden = $_SESSION["woorden"];
 $keuze = $_GET['keuze'];
 
-if ($keuze == 3) {
-    $keuze = 3;
-} else {
-    if ($keuze == 2) {
-        $keuze = 2;
-    } else {
-        $keuze = 1;
-    }
-}
+//if ($keuze == 3) {
+    //$keuze = 3;
+//} else {
+    //if ($keuze == 2) {
+        //$keuze = 2;
+    //} else {
+        //$keuze = 1;
+    //}
+//}
 
 $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);
@@ -30,6 +30,7 @@ $kolom = 0;
 $regel = 0;
 $einde = 0;
 $vorige_cel = -1;
+$keer = 0;
 
 function regelplaats(&$regel, &$aantal_regels, &$kolom) {
     while ($regel < $aantal_regels) {
@@ -39,7 +40,7 @@ function regelplaats(&$regel, &$aantal_regels, &$kolom) {
     }
 }
 
-function zoek(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel ) {
+function zoek(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
     while ($kolom < $aantal_kolommen and $einde == 0) {
         if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
             //if($vorige_cel == -1){
@@ -98,16 +99,44 @@ function kleurCel($cel, $kleur) {
 //exit;
 
 
-while ($uitgevoerd < $herhalingen) {
+while ($uitgevoerd < $herhalingen and $keer <= 1) {
     $regel = 0;
+    $keer = $keer + 1;
     //regelplaats($regel, $aantal_regels, $kolom);
     while ($regel < $aantal_regels) {
-        $kolom = 0;
-        zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
-        $regel = $regel + 1;
+        //echo $cel;
+        //echo "<br>";
+       // if ($cel < 100) {
+            $kolom = 0;
+            zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+            $regel = $regel + 1;
+        //}
+        //else {echo 'Niet gevonden';}
     }
-    $uitgevoerd = $uitgevoerd + 1;
+    //$uitgevoerd = $uitgevoerd + 1;
 }
+
+$keer = 0;
+$zoek = strrev($zoek);
+$herhalingen = strlen($zoek);
+$arrayzoek = str_split($zoek);
+while ($uitgevoerd < $herhalingen and $keer <= 1) {
+    $regel = 0;
+    $keer = $keer + 1;
+    //regelplaats($regel, $aantal_regels, $kolom);
+    while ($regel < $aantal_regels) {
+        //echo $cel;
+        //echo "<br>";
+       // if ($cel < 100) {
+            $kolom = 0;
+            zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+            $regel = $regel + 1;
+        //}
+        //else {echo 'Niet gevonden';}
+    }
+    //$uitgevoerd = $uitgevoerd + 1;
+}
+
 
 echo $keuze;
 ?>
