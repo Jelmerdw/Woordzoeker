@@ -32,7 +32,7 @@ table {
 }
 #copyright {
     position: absolute;
-    bottom: 0;
+    bottom: 0; 
 }
 
 #loading_spinner { display:none; }
