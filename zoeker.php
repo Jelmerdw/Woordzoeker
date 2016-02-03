@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 $woorden = $_SESSION["woorden"];
@@ -18,6 +19,8 @@ $einde = 0;
 $keer = 0;
 
 function regelplaats(&$regel, &$aantal_regels, &$kolom) {
+    global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel;
+    
     while ($regel < $aantal_regels) {
         $kolom = 0;
         zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
@@ -85,12 +88,7 @@ function kleurCel($cel, $kleur) {
 while ($uitgevoerd < $herhalingen and $keer <= 1) {
     $regel = 0;
     $keer = $keer + 1;
-    //regelplaats($regel, $aantal_regels, $kolom);
-    while ($regel < $aantal_regels) {
-            $kolom = 0;
-            zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
-            $regel = $regel + 1;
-    }
+    regelplaats($regel, $aantal_regels, $kolom);
 }
 
 $keer = 0;
@@ -101,12 +99,7 @@ $arrayzoek = str_split($zoek);
 while ($uitgevoerd < $herhalingen and $keer <= 1) {
     $regel = 0;
     $keer = $keer + 1;
-    //regelplaats($regel, $aantal_regels, $kolom);
-    while ($regel < $aantal_regels) {
-            $kolom = 0;
-            zoek($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
-            $regel = $regel + 1;
-    }
+    regelplaats($regel, $aantal_regels, $kolom);
 }
 
 
