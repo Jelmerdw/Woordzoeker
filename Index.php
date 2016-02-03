@@ -147,11 +147,12 @@ session_start();
             }
         }
         ?>
-    </body>
 
-</html>
-<html/>
-<div id="div_loader"></div>
-<img id="loading_spinner" src="loading_spinner.gif">
-<div class="my_update_panel"></div>
+        <div id="div_loader"></div>
+        <img id="loading_spinner" src="loading_spinner.gif">
+        <div class="my_update_panel"></div>
+        <div id="copyright">
+            <h4>&#169; Deze woordzoeker is gemaakt door Jelmer, Luna en Stijn.</h4>
+        </div>
+    </body>
 </html>
