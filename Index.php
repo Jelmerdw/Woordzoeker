@@ -29,7 +29,6 @@ session_start();
                 });
 
                 $("p").mouseout(function () {
-                    $("#div_loader").stop();
                     window.stop();
                     $("td").css("background-color", "white");
                     $("#div_loader").empty();
