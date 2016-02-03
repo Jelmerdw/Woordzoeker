@@ -3,8 +3,8 @@
 // $woordzoeker[][]  'a' 'b' '-'
 //                   'z' '-' 'd'
 // als test
-$woordzoeker[] = str_split('ab-');
-$woordzoeker[] = str_split('z-d');
+//$woordzoeker[] = str_split('ab-');
+//$woordzoeker[] = str_split('z-d');
 
 function replaceDash(Array $woordzoeker) {
     $letters = "abcdefghijklmnopqrstuvwxyz";

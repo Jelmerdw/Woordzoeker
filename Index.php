@@ -106,6 +106,18 @@ session_start();
 
                 fclose($file);
 
+                //Streepjes worden letters:
+                $letters = "abcdefghijklmnopqrstuvwxyz";
+                $lettersArray = str_split($letters);
+                foreach ($woordzoeker as $rij => $regel) {
+                    foreach ($regel as $kolom => $letter) {
+                        if ($letter == '-') {
+                            $pos = rand(0, strlen($letters) - 1);
+                            $woordzoeker[$rij][$kolom] = $lettersArray[$pos];
+                        }
+                    }
+                }
+
                 function build_table($woordzoeker) {
                     // start table
                     $html = '<table>';
