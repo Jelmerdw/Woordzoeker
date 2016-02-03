@@ -30,5 +30,9 @@ table {
     margin-top: 0px;
     margin-bottom: 0px;
 }
+#copyright {
+    position: absolute;
+    bottom: 0; 
+}
 
 #loading_spinner { display:none; }
