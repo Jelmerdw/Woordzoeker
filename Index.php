@@ -1,5 +1,4 @@
 <?php
-// Start the session
 session_start();
 ?>
 
@@ -12,7 +11,7 @@ session_start();
         <script>
             $(document).ready(function ()
             {
-                $("p").mouseover(function () {
+                $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
                     console.log(Class);
 
@@ -23,10 +22,18 @@ session_start();
 
                     //$('.' + Class).hover(function () {
                     $("#div_loader").load(Class2);
+                    $('#loading_spinner').show();
                     //$("#div_loader").load("zoeker.php?keuze=3");})
                     //$("#div_loader").load("zoeker.php?keuze=1");
                     //$("#div_loader").load("zoeker.php?keuze=3");
+                });
 
+                $("p").mouseout(function () {
+                    $("#div_loader").stop();
+                    window.stop();
+                    $("td").css("background-color", "white");
+                    $("#div_loader").empty();
+                    $('#loading_spinner').hide();
                 });
             });
         </script>
@@ -99,22 +106,6 @@ session_start();
 
                 fclose($file);
 
-                //print"<pre>";
-                //print_r($woordzoeker);
-                //$regel = 0 ;
-                //$kolom = 0 ;
-                //while ($regel < $aantal_regels)
-                //{
-                //while ($kolom < $aantal_kolommen)
-                //{
-                //echo $woordzoeker[$regel][$kolom] ;
-                //$kolom = $kolom + 1 ;
-                //}
-                //echo "<br>" ;    
-                //$kolom = 0 ;
-                //$regel = $regel + 1 ;
-                //}    
-
                 function build_table($woordzoeker) {
                     // start table
                     $html = '<table>';
@@ -157,5 +148,10 @@ session_start();
         }
         ?>
     </body>
+
 </html>
-<html/><div id="div_loader"></div></html>
+<html/>
+<div id="div_loader"></div>
+<img id="loading_spinner" src="loading_spinner.gif">
+<div class="my_update_panel"></div>
+</html>

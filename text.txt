@@ -6,8 +6,8 @@ am----o---
 --n------d
 ---raam---
 ----bal---
-----------
-----------
+gaarkeuken
+otua------
 
 raam
 bal
@@ -20,3 +20,5 @@ auto
 school
 gebouw
 spaghetti
+gaarkeuken
+raag
