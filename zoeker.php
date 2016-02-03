@@ -9,7 +9,7 @@ $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);
 $arrayzoek = str_split($zoek);
 
-$aantal_regels = $_SESSION["aantal_regel"];
+$aantal_regels = $_SESSION["aantal_regels"];
 $aantal_kolommen = $_SESSION["aantal_kolommen"];
 $woordzoeker = $_SESSION["woordzoeker"];
 $uitgevoerd = 0;
@@ -28,12 +28,12 @@ function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     }
 }
 
-function zoek_verticaal(&$regel, &$aantal_kolommen, &$kolom) {
+function zoek_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
     global $aantal_regels, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel;
 
     while ($kolom < $aantal_kolommen) {
         $regel = 0;
-        controleer_verticaal($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+        controleer_verticaal($regel, $aantal_regels, $einde, $woordzoeker, $kolom, $arrayzoek, $uitgevoerd, $cel, $aantal_kolommen);
         $kolom = $kolom + 1;
     }
 }
@@ -48,10 +48,10 @@ function controleer_horizontaal(&$kolom, &$aantal_kolommen, &$einde, &$woordzoek
     }
 }
 
-function controleer_verticaal(&$kolom, &$aantal_regels, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
+function controleer_verticaal(&$regel, &$aantal_regels, &$einde, &$woordzoeker, &$kolom, &$arrayzoek, &$uitgevoerd, &$cel, &$aantal_kolommen) {
     while ($regel < $aantal_regels and $einde == 0) {
         if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-            gevonden_verticaal($regel, $aantal_kolommen, $kolom);
+            gevonden_verticaal($kolom, $aantal_kolommen, $regel);
         } else {
             niet_gevonden_verticaal($kolom, $uitgevoerd, $cel);
         }
@@ -65,7 +65,7 @@ function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
 }
 
-function gevonden_verticaal(&$regel, &$aantal_kolommen, &$kolom) {
+function gevonden_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
     $cel = $regel * $aantal_kolommen + $kolom;
     kleurCel($cel, 'yellow');
     $regel = $regel + 1;
@@ -76,14 +76,14 @@ function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
     $kolom = $kolom + 1;
     $uitgevoerd = 0;
     $cel = 0;
-    herstel($cel, $aantal_klommen, $aantal_regels);
+    herstel($cel);
 }
 
-function niet_gevonden_verticaal(&$kolom, &$uitgevoerd, &$cel) {
+function niet_gevonden_verticaal(&$regel, &$uitgevoerd, &$cel) {
     $regel = $regel + 1;
     $uitgevoerd = 0;
     $cel = 0;
-    herstel($cel, $aantal_klommen, $aantal_regels);
+    herstel($cel);
 }
 
 function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
@@ -97,7 +97,7 @@ function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
     }
 }
 
-function herstel(&$cel, &$aantal_klommen, &$aantal_regels) {
+function herstel(&$cel) {
     global $cel, $aantal_kolommen, $aantal_regels;
 
     while ($cel < $aantal_kolommen * $aantal_regels) {
@@ -112,34 +112,13 @@ function kleurCel($cel, $kleur) {
     echo '</script>';
 }
 
-//print "<pre>";print_r($_SESSION); 
-//print "</pre>";
-//print "herhalingen $herhalingen";
-//exit;
-
-
 $regel = 0;
 $kolom = 0;
 zoek_horizontaal($regel, $aantal_regels, $kolom);
 
 $regel = 0;
 $kolom = 0;
-//zoek_verticaal($regel, $aantal_kolommen, $kolom);
-while ($kolom < $aantal_kolommen) {
-    $regel = 0;
-    while ($regel < $aantal_regels and $einde == 0) {
-        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-            gevonden_verticaal($regel, $aantal_kolommen, $kolom);
-        } else {
-            //niet_gevonden_verticaal($kolom, $uitgevoerd, $cel);
-            $regel = $regel + 1;
-            $uitgevoerd = 0;
-            $cel = 0;
-            herstel($cel, $aantal_klommen, $aantal_regels);
-        }
-    }
-    $kolom = $kolom + 1;
-}
+zoek_verticaal($regel, $aantal_kolommen, $kolom);
 
 $zoek = strrev($zoek);
 $herhalingen = strlen($zoek);

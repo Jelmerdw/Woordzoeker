@@ -93,7 +93,7 @@ session_start();
                         $woordzoeker[] = $teken;
                         $_SESSION["woordzoeker"] = $woordzoeker;
                         $aantal_regels = $aantal_regels + 1;
-                        $_SESSION["aantal_regel"] = $aantal_regels;
+                        $_SESSION["aantal_regels"] = $aantal_regels;
                     } else {
                         $lijn_trim = rtrim($lijn, "\n");
                         $lijn_trim_trim = rtrim($lijn_trim, "\r");
