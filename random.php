@@ -1,21 +1,29 @@
 <?php
-$letters = "abcdefghijklmnopqrstuvwxyz";
-$regel = array('-');
-foreach($regel as $i => $W) {
-//$regel = str_split("---");
-foreach ($regel as $i => $W) {
-    if ($W == '-') {
-      $l = rand(0,26);
-      $regel[$i] = $letters[$l];
-    }  
-     }
-}
-$regels = FILE("text.txt");
-foreach($regels as $regelNr => $data) {
-       if ($data == ''){ 
-        break;
+// ik heb array met daarin array van letters
+// $woordzoeker[][]  'a' 'b' '-'
+//                   'z' '-' 'd'
+// als test
+$woordzoeker[] = str_split('ab-');
+$woordzoeker[] = str_split('z-d');
+
+function replaceDash(Array $woordzoeker) {
+    $letters = "abcdefghijklmnopqrstuvwxyz";
+    $lettersArray = str_split($letters);
+    print "<pre>";
+    print_r($woordzoeker);
+    foreach ($woordzoeker as $rij => $regel) {
+        foreach ($regel as $kolom => $letter) {
+            if ($letter == '-') {
+                $pos = rand(0, strlen($letters));
+                $woordzoeker[$rij][$kolom] = $lettersArray[$pos];
+            }
+        }
     }
-    $wz[$regelNr] = $data;
-print implode("", $regel);
+    print_r($woordzoeker);
+    return $woordzoeker;
 }
+
+// gebruik
+//include_once 'random.php';
+$woordzoeker = replaceDash($woordzoeker);
 ?>
