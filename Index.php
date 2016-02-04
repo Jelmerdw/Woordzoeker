@@ -151,7 +151,7 @@ session_start();
         }
         ?>
 
-        <div id="div_loader"></div>
+        <div id="div_loader">test</div>
         <img id="loading_spinner" src="loading_spinner.gif">
         <div class="my_update_panel"></div>
         <div id="copyright">
