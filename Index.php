@@ -13,19 +13,11 @@ session_start();
             {
                 $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
-                    console.log(Class);
 
                     var Class2 = 'zoeker.php?keuze=' + Class + ''
-                    //alert(Class2);
-                    console.log(Class2);
 
-
-                    //$('.' + Class).hover(function () {
                     $("#div_loader").load(Class2);
                     $('#loading_spinner').show();
-                    //$("#div_loader").load("zoeker.php?keuze=3");})
-                    //$("#div_loader").load("zoeker.php?keuze=1");
-                    //$("#div_loader").load("zoeker.php?keuze=3");
                 });
 
                 $("p").mouseout(function () {

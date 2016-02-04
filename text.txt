@@ -1,11 +1,11 @@
 r-b---v-ra
-ama---o---
+ama-------
 --n---voer
 --a------a
---a------n
---n------d
----raam---
-----bal---
+--aal----n
+--n-v----d
+n--raam---
+e---bal---
 gaarkeuken
 otua------
 
@@ -14,11 +14,10 @@ bal
 voer
 rand
 banaan
-ballon
-appel
 auto
-school
-gebouw
-spaghetti
 gaarkeuken
 raag
+ogen
+nul
+code
+lava
