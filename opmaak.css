@@ -39,13 +39,5 @@ table {
     position: absolute;
     bottom: 0; 
 }
-#midden {
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: auto;
-    padding-right: auto;
-}
 
 #loading_spinner { display:none; }
