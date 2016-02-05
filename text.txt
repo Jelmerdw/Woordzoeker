@@ -1,13 +1,13 @@
-r-b---v-ra
-ama-------
+r-ba--v-ra
+ama------s
 --n---voer
---a------a
+--au-----a
 --aal----n
 --n-v----d
 n--raam---
 e---bal---
 gaarkeuken
-otua------
+otua----g-
 
 raam
 bal
@@ -19,5 +19,5 @@ gaarkeuken
 raag
 ogen
 nul
-code
+gas
 lava

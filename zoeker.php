@@ -146,12 +146,9 @@ function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
 }
 
 function herstel(&$cel) {
-    global $cel, $aantal_kolommen, $aantal_regels;
-
-    while ($cel < $aantal_kolommen * $aantal_regels) {
-        kleurCel($cel, 'white');
-        $cel = $cel + 1;
-    }
+    echo '<script type="text/javascript">';
+    echo '$("td").css("background-color", "white");';
+    echo '</script>';
 }
 
 function kleurCel($cel, $kleur) {
