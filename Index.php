@@ -13,23 +13,14 @@ session_start();
             {
                 $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
-                    console.log(Class);
 
                     var Class2 = 'zoeker.php?keuze=' + Class + ''
-                    //alert(Class2);
-                    console.log(Class2);
 
-
-                    //$('.' + Class).hover(function () {
                     $("#div_loader").load(Class2);
                     $('#loading_spinner').show();
-                    //$("#div_loader").load("zoeker.php?keuze=3");})
-                    //$("#div_loader").load("zoeker.php?keuze=1");
-                    //$("#div_loader").load("zoeker.php?keuze=3");
                 });
 
                 $("p").mouseout(function () {
-                    $("#div_loader").stop();
                     window.stop();
                     $("td").css("background-color", "white");
                     $("#div_loader").empty();
@@ -86,6 +77,7 @@ session_start();
                             $einde = 1;
                         }
 
+<<<<<<< HEAD
                         if ($einde == 0) {
                             $lijn_trim = rtrim($lijn, "\n");
                             $lijn_trim_trim = rtrim($lijn_trim, "\r");
@@ -103,6 +95,24 @@ session_start();
                             $_SESSION["woorden"] = $woorden;
                             $aantal_woorden = $aantal_woorden + 1;
                         }
+=======
+                    if ($einde == 0) {
+                        $lijn_trim = rtrim($lijn, "\n");
+                        $lijn_trim_trim = rtrim($lijn_trim, "\r");
+                        $aantal_kolommen = strlen($lijn_trim_trim);
+                        $_SESSION["aantal_kolommen"] = $aantal_kolommen;
+                        $teken = str_split($lijn_trim_trim);
+                        $woordzoeker[] = $teken;
+                        $_SESSION["woordzoeker"] = $woordzoeker;
+                        $aantal_regels = $aantal_regels + 1;
+                        $_SESSION["aantal_regels"] = $aantal_regels;
+                    } else {
+                        $lijn_trim = rtrim($lijn, "\n");
+                        $lijn_trim_trim = rtrim($lijn_trim, "\r");
+                        $woorden[] = $lijn_trim_trim;
+                        $_SESSION["woorden"] = $woorden;
+                        $aantal_woorden = $aantal_woorden + 1;
+>>>>>>> 0559d4af311c592148de64fe852d448230bb36e4
                     }
 
                     fclose($file);
@@ -161,10 +171,16 @@ session_start();
             }
             ?>
 
+<<<<<<< HEAD
             <div id="div_loader"></div>
             <img id="loading_spinner" src="loading_spinner.gif">
             <div class="my_update_panel"></div>
         </div>
+=======
+        <div id="div_loader">test</div>
+        <img id="loading_spinner" src="loading_spinner.gif">
+        <div class="my_update_panel"></div>
+>>>>>>> 0559d4af311c592148de64fe852d448230bb36e4
         <div id="copyright">
             <h4>&#169; Jelmer, Luna en Stijn.</h4>
         </div>
