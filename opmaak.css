@@ -40,4 +40,8 @@ table {
     bottom: 0; 
 }
 
-#loading_spinner { display:none; }
+#loading_spinner {
+    display:none;
+    float: left;
+    margin-left: 20px;
+}
