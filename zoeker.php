@@ -186,10 +186,6 @@ $regel = 0;
 $kolom = 0;
 zoek_diagonaal($regel, $aantal_regels, $kolom);
 
-
-
-echo $keuze;
-
 echo '<script type="text/javascript">';
 echo '$("#loading_spinner").hide()';
 echo '</script>';
