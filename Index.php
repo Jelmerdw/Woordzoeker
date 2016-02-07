@@ -22,7 +22,8 @@ session_start();
 
                 $("p").mouseout(function () {
                     window.stop();
-                    $("td").css("background-color", "white");
+                    $("td").css("background-color", "white");\
+                    //$("over").css("background-color", "white");
                     $("#div_loader").empty();
                     $('#loading_spinner').hide();
                 });
@@ -109,9 +110,9 @@ session_start();
                     }
                 }
 
-                function build_table($woordzoeker) {
+                function build_table1($woordzoeker) {
                     // start table
-                    $html = '<table>';
+                    $html = '<table id="over">';
                     $getal0 = 0;
                     // data rows
                     foreach ($woordzoeker as $key => $value) {
@@ -130,7 +131,29 @@ session_start();
                     return $html;
                 }
 
-                echo build_table($woordzoeker);
+                function build_table2($woordzoeker) {
+                    // start table
+                    $html = '<table id="klik">';
+                    $getal0 = 0;
+                    // data rows
+                    foreach ($woordzoeker as $key => $value) {
+                        $html .= '<tr>';
+                        foreach ($value as $key2 => $value2) {
+
+                            $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
+                            $getal0 = $getal0 + 1;
+                        }
+                        $html .= '</tr>';
+                    }
+
+                    // finish table and return it
+
+                    $html .= '</table>';
+                    return $html;
+                }
+
+                echo build_table1($woordzoeker);
+                echo build_table2($woordzoeker);
 
                 $gegeven_woorden = 1;
                 $getal1 = 1;
