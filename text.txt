@@ -1,11 +1,11 @@
 r-ba--v-ra
 ama------s
 --n---voer
---au-----a
---aal----n
---n-v----d
-n--raam---
-e---bal---
+--au----ia
+--aal--n-n
+--n-v-g--d
+n--raam-a-
+e---balb--
 gaarkeuken
 otua----g-
 
@@ -21,3 +21,6 @@ ogen
 nul
 gas
 lava
+ring
+bad
+de
