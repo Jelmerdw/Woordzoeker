@@ -25,7 +25,14 @@ session_start();
 
                     var Class2 = 'zoeker_klik.php?keuze=' + Class + ''
 
-                    $("#div_loader").load(Class2);
+                    //$("#div_loader1").load(Class2);
+
+                    $.ajax({
+                        url: Class2
+                    }).done(function (data) {
+                        $('#div_loader1').append(data);
+                    });
+
                     $('#loading_spinner').show();
                 });
 
@@ -163,6 +170,7 @@ session_start();
             ?>
 
             <div id="div_loader"></div>
+            <div id="div_loader1"></div>
             <img id="loading_spinner" src="loading_spinner.gif">
             <div class="my_update_panel"></div>
             <div id="copyright">

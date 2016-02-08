@@ -245,23 +245,26 @@ function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
 }
 
 function herstel(&$cel) {
+    global $keuze;
     echo '<script type="text/javascript">';
     echo '$("#over td").css("background-color", "white");';
-    echo '$("#klik td").css("background-color", "transparent");';
-    echo '$("#klik td").css("color", "transparent");';
+    echo '$("#klik' . $keuze . ' td").css("background-color", "transparent");';
+    echo '$("#klik' . $keuze . ' td").css("color", "transparent");';
     echo '</script>';
 }
 
 function kleurCel($cel, $kleur) {
+    global $keuze;
     echo '<script type="text/javascript">';
-    echo ' $("#klik .cel' . $cel . '").css("background-color", "' . $kleur . '");';
-    echo ' $("#klik .cel' . $cel . '").css("color", "black");';
+    echo ' $("#klik' . $keuze . ' .cel' . $cel . '").css("background-color", "' . $kleur . '");';
+    echo ' $("#klik' . $keuze . ' .cel' . $cel . '").css("color", "black");';
     echo '</script>';
 }
 
 function build_table2($woordzoeker) {
     // start table
-    $html = '<table id="klik">';
+    global $keuze;
+    $html = '<table id="klik' . $keuze . '">';
     $getal0 = 0;
     // data rows
     foreach ($woordzoeker as $key => $value) {
@@ -280,7 +283,16 @@ function build_table2($woordzoeker) {
     return $html;
 }
 
+    echo '<script type="text/javascript">';
+    echo ' $("#klik' . $keuze . '").css("border-collapse", "collapse");';
+    echo ' $("#klik' . $keuze . '").css("background-color", "transparent");';
+    echo ' $("#klik' . $keuze . '").css("margin-top", "10px");';
+    echo ' $("#klik' . $keuze . '").css("position", "absolute");';
+    echo ' $("#klik' . $keuze . '").css("color", "transparent");';
+    echo '</script>';
+
 echo build_table2($woordzoeker);
+//echo $keuze;
 
 zoek_horizontaal($regel, $aantal_regels, $kolom);
 zoek_verticaal($regel, $aantal_kolommen, $kolom);
