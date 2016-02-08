@@ -1,6 +1,13 @@
 body {
     background-color: #adbcd1;
 }
+#body {
+    //border: solid 1px #000000;
+    //padding-left: auto;
+    //padding-right: auto;
+    //padding-top: auto;
+    //padding-bottom: auto;
+}
 td {
     padding: 1px;
     text-align: center;
