@@ -11,7 +11,7 @@ td {
 table, td {
     border: solid 1px #000000;
 }
-table {
+#over {
     background-color: #FFFFFF;
     border-collapse: collapse;
     margin-top: 10px;
@@ -44,4 +44,12 @@ table {
     display:none;
     float: left;
     margin-left: 20px;
+}
+
+#klik {
+    border-collapse: collapse;
+    background-color: transparent;
+    margin-top: 10px;
+    position: absolute;
+    color: transparent;
 }

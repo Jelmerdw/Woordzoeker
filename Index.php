@@ -14,7 +14,16 @@ session_start();
                 $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
 
-                    var Class2 = 'zoeker.php?keuze=' + Class + ''
+                    var Class2 = 'zoeker_over.php?keuze=' + Class + ''
+
+                    $("#div_loader").load(Class2);
+                    $('#loading_spinner').show();
+                });
+
+                $("p").click(function () {
+                    var Class = $(this).attr("class");
+
+                    var Class2 = 'zoeker_klik.php?keuze=' + Class + ''
 
                     $("#div_loader").load(Class2);
                     $('#loading_spinner').show();
@@ -22,8 +31,8 @@ session_start();
 
                 $("p").mouseout(function () {
                     window.stop();
-                    $("td").css("background-color", "white");\
-                    //$("over").css("background-color", "white");
+                    //$("td").css("background-color", "white");
+                    $("#over td").css("background-color", "white");
                     $("#div_loader").empty();
                     $('#loading_spinner').hide();
                 });
@@ -33,152 +42,132 @@ session_start();
 
     </head>
     <body> 
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" size="60" />
-            <input type="submit" value="Lees" />
-        </form>
+        <div id="body">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" size="60" />
+                <input type="submit" value="Lees" />
+            </form>
 
 
 
-        <?php
-        if ($_FILES) {
+            <?php
+            if ($_FILES) {
 
-            //Checking if file is selected or not
+                //Checking if file is selected or not
 
-            if ($_FILES['file']['name'] != "") {
+                if ($_FILES['file']['name'] != "") {
 
 
-                //Checking if the file is plain text or not
+                    //Checking if the file is plain text or not
 
-                if (isset($_FILES) && $_FILES['file']['type'] != 'text/plain') {
+                    if (isset($_FILES) && $_FILES['file']['type'] != 'text/plain') {
 
-                    echo "<span>Woordzoeker ondersteunt alleen .txt files! Kies een text bestand.</span>";
+                        echo "<span>Woordzoeker ondersteunt alleen .txt files! Kies een text bestand.</span>";
 
-                    exit();
-                }
+                        exit();
+                    }
 
-                //Getting and storing the temporary file name of the uploaded file
-                $fileName = $_FILES['file']['tmp_name'];
+                    //Getting and storing the temporary file name of the uploaded file
+                    $fileName = $_FILES['file']['tmp_name'];
 
-                //Throw an error message if the file could not be open
-                $file = fopen($fileName, "r") or exit("Unable to open file!");
+                    //Throw an error message if the file could not be open
+                    $file = fopen($fileName, "r") or exit("Unable to open file!");
 
 
 
 // Reading a .txt file
-                $aantal_regels = 0;
-                $einde = 0;
-                $aantal_woorden = 0;
+                    $aantal_regels = 0;
+                    $einde = 0;
+                    $aantal_woorden = 0;
 
-                while (!feof($file)) {
-                    $lijn = fgets($file);
-                    $karakters = strlen($lijn);
-                    if ($karakters == 2) {
-                        $einde = 1;
-                    }
+                    while (!feof($file)) {
+                        $lijn = fgets($file);
+                        $karakters = strlen($lijn);
+                        if ($karakters == 2) {
+                            $einde = 1;
+                        }
 
-                    if ($einde == 0) {
-                        $lijn_trim = rtrim($lijn, "\n");
-                        $lijn_trim_trim = rtrim($lijn_trim, "\r");
-                        $aantal_kolommen = strlen($lijn_trim_trim);
-                        $_SESSION["aantal_kolommen"] = $aantal_kolommen;
-                        $teken = str_split($lijn_trim_trim);
-                        $woordzoeker[] = $teken;
-                        $_SESSION["woordzoeker"] = $woordzoeker;
-                        $aantal_regels = $aantal_regels + 1;
-                        $_SESSION["aantal_regels"] = $aantal_regels;
-                    } else {
-                        $lijn_trim = rtrim($lijn, "\n");
-                        $lijn_trim_trim = rtrim($lijn_trim, "\r");
-                        $woorden[] = $lijn_trim_trim;
-                        $_SESSION["woorden"] = $woorden;
-                        $aantal_woorden = $aantal_woorden + 1;
-                    }
-                }
-
-                fclose($file);
-
-                //Streepjes worden letters:
-                $letters = "abcdefghijklmnopqrstuvwxyz";
-                $lettersArray = str_split($letters);
-                foreach ($woordzoeker as $rij => $regel) {
-                    foreach ($regel as $kolom => $letter) {
-                        if ($letter == '-') {
-                            $pos = rand(0, strlen($letters) - 1);
-                            $woordzoeker[$rij][$kolom] = $lettersArray[$pos];
+                        if ($einde == 0) {
+                            $lijn_trim = rtrim($lijn, "\n");
+                            $lijn_trim_trim = rtrim($lijn_trim, "\r");
+                            $aantal_kolommen = strlen($lijn_trim_trim);
+                            $_SESSION["aantal_kolommen"] = $aantal_kolommen;
+                            $teken = str_split($lijn_trim_trim);
+                            $woordzoeker[] = $teken;
+                            $_SESSION["woordzoeker"] = $woordzoeker;
+                            $aantal_regels = $aantal_regels + 1;
+                            $_SESSION["aantal_regels"] = $aantal_regels;
+                        } else {
+                            $lijn_trim = rtrim($lijn, "\n");
+                            $lijn_trim_trim = rtrim($lijn_trim, "\r");
+                            $woorden[] = $lijn_trim_trim;
+                            $_SESSION["woorden"] = $woorden;
+                            $aantal_woorden = $aantal_woorden + 1;
                         }
                     }
-                }
 
-                function build_table1($woordzoeker) {
-                    // start table
-                    $html = '<table id="over">';
-                    $getal0 = 0;
-                    // data rows
-                    foreach ($woordzoeker as $key => $value) {
-                        $html .= '<tr>';
-                        foreach ($value as $key2 => $value2) {
+                    fclose($file);
 
-                            $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
-                            $getal0 = $getal0 + 1;
+                    //Streepjes worden letters:
+                    $letters = "abcdefghijklmnopqrstuvwxyz";
+                    $lettersArray = str_split($letters);
+                    foreach ($woordzoeker as $rij => $regel) {
+                        foreach ($regel as $kolom => $letter) {
+                            if ($letter == '-') {
+                                $pos = rand(0, strlen($letters) - 1);
+                                $woordzoeker[$rij][$kolom] = $lettersArray[$pos];
+                            }
                         }
-                        $html .= '</tr>';
                     }
 
-                    // finish table and return it
+                    function build_table1($woordzoeker) {
+                        // start table
+                        $html = '<table id="over">';
+                        $getal0 = 0;
+                        // data rows
+                        foreach ($woordzoeker as $key => $value) {
+                            $html .= '<tr>';
+                            foreach ($value as $key2 => $value2) {
 
-                    $html .= '</table>';
-                    return $html;
-                }
-
-                function build_table2($woordzoeker) {
-                    // start table
-                    $html = '<table id="klik">';
-                    $getal0 = 0;
-                    // data rows
-                    foreach ($woordzoeker as $key => $value) {
-                        $html .= '<tr>';
-                        foreach ($value as $key2 => $value2) {
-
-                            $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
-                            $getal0 = $getal0 + 1;
+                                $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
+                                $getal0 = $getal0 + 1;
+                            }
+                            $html .= '</tr>';
                         }
-                        $html .= '</tr>';
+
+                        // finish table and return it
+
+                        $html .= '</table>';
+                        return $html;
                     }
 
-                    // finish table and return it
+                    echo build_table1($woordzoeker);
 
-                    $html .= '</table>';
-                    return $html;
+                    $gegeven_woorden = 1;
+                    $getal1 = 1;
+                    echo "<div id='woordjes'>";
+                    while ($gegeven_woorden < $aantal_woorden) {
+                        echo "<p class=" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
+                        echo '<br>';
+                        $getal1 = $getal1 + 1;
+                        $gegeven_woorden = $gegeven_woorden + 1;
+                    }
+                    echo "</div>";
+                    //print"<pre>";
+                    //print_r($letter);
+                } else {
+                    if (isset($_FILES) && $_FILES['file']['type'] == '')
+                        echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
                 }
-
-                echo build_table1($woordzoeker);
-                echo build_table2($woordzoeker);
-
-                $gegeven_woorden = 1;
-                $getal1 = 1;
-                echo "<div id='woordjes'>";
-                while ($gegeven_woorden < $aantal_woorden) {
-                    echo "<p class=" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
-                    echo '<br>';
-                    $getal1 = $getal1 + 1;
-                    $gegeven_woorden = $gegeven_woorden + 1;
-                }
-                echo "</div>";
-                //print"<pre>";
-                //print_r($letter);
-            } else {
-                if (isset($_FILES) && $_FILES['file']['type'] == '')
-                    echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
             }
-        }
-        ?>
+            ?>
 
-        <div id="div_loader"></div>
-        <img id="loading_spinner" src="loading_spinner.gif">
-        <div class="my_update_panel"></div>
-        <div id="copyright">
-            <h4>&#169; Jelmer, Luna en Stijn.</h4>
+            <div id="div_loader"></div>
+            <img id="loading_spinner" src="loading_spinner.gif">
+            <div class="my_update_panel"></div>
+            <div id="copyright">
+                <h4>&#169; Jelmer, Luna en Stijn.</h4>
+            </div>
         </div>
     </body>
 </html>

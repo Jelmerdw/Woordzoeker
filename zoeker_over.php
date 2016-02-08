@@ -246,13 +246,15 @@ function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
 
 function herstel(&$cel) {
     echo '<script type="text/javascript">';
-    echo '$("td").css("background-color", "white");';
+    echo '$("#over td").css("background-color", "white");';
+    echo '$("#klik td").css("background-color", "transparent");';
+    echo '$("#klik td").css("color", "transparent");';
     echo '</script>';
 }
 
 function kleurCel($cel, $kleur) {
     echo '<script type="text/javascript">';
-    echo ' $(".cel' . $cel . '").css("background-color", "' . $kleur . '");';
+    echo ' $("#over .cel' . $cel . '").css("background-color", "' . $kleur . '");';
     echo '</script>';
 }
 
