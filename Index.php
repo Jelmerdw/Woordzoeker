@@ -25,15 +25,21 @@ session_start();
 
                     var Class2 = 'zoeker_klik.php?keuze=' + Class + ''
 
-                    //$("#div_loader1").load(Class2);
+                    if ($('#woord' + Class + '').length) {
+                        //$('#loading_spinner').show();
+                        $('#woord' + Class + '').remove();
 
-                    $.ajax({
-                        url: Class2
-                    }).done(function (data) {
-                        $('#div_loader1').append(data);
-                    });
+                    }
+                    else {
+                        $("#body").append("<div id='woord" + Class + "'></div>");
+                        $.ajax({
+                            url: Class2
+                        }).done(function (data) {
+                            $('#woord' + Class + '').append(data);
+                        });
 
-                    $('#loading_spinner').show();
+                        $('#loading_spinner').show();
+                    }
                 });
 
                 $("p").mouseout(function () {
