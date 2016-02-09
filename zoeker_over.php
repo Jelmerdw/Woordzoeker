@@ -151,7 +151,9 @@ function controleer_diagonaal2(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeke
 }
 
 function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
+    global $a_gevonden;
     $cel = $regel * $aantal_kolommen + $kolom;
+    $a_gevonden[] = $cel;
     kleurCel($cel, 'yellow');
     $kolom = $kolom + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
@@ -189,7 +191,8 @@ function gevonden_diagonaal2(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
 }
 
 function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
-    global $regel_v;
+    global $regel_v, $a_gevonden;
+    unset($a_gevonden);
     $regel_v = -1;
     $kolom = $kolom + 1;
     $uitgevoerd = 0;
@@ -271,6 +274,10 @@ zoek_horizontaal($regel, $aantal_regels, $kolom);
 zoek_verticaal($regel, $aantal_kolommen, $kolom);
 zoek_diagonaal1($regel, $aantal_regels, $kolom);
 zoek_diagonaal2($regel, $aantal_regels, $kolom);
+
+
+print"<pre>";
+print_r($a_gevonden);
 
 echo '<script type="text/javascript">';
 echo '$("#loading_spinner").hide()';
