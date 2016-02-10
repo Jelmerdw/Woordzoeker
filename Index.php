@@ -158,7 +158,14 @@ session_start();
 
                     $gegeven_woorden = 1;
                     $getal1 = 1;
+                    
+                    $margin = $aantal_kolommen * 41 + 1 + 20
+                    
                     echo "<div id='woordjes'>";
+                    echo '<script type="text/javascript">';
+                    echo ' $("#woordjes").css("margin-left", "' . $margin . 'px");';
+                    echo '</script>';
+                    
                     while ($gegeven_woorden < $aantal_woorden) {
                         echo "<p class=" . $getal1 . ">" . $woorden[$gegeven_woorden] . "</p>";
                         echo '<br>';
