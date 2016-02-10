@@ -154,7 +154,6 @@ function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
     global $a_gevonden;
     $cel = $regel * $aantal_kolommen + $kolom;
     $a_gevonden[] = $cel;
-    //kleurCel($cel, 'red');
     $kolom = $kolom + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
 }
@@ -163,7 +162,6 @@ function gevonden_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
     global $a_gevonden;
     $cel = $regel * $aantal_kolommen + $kolom;
     $a_gevonden[] = $cel;
-    //kleurCel($cel, 'red');
     $regel = $regel + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
 }
@@ -173,7 +171,6 @@ function gevonden_diagonaal1(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
 
     $cel = $regel * $aantal_kolommen + $kolom;
     $a_gevonden[] = $cel;
-    //kleurCel($cel, 'red');
     $kolom_s = $kolom_s + 1;
     $regel_s = $regel_s + 1;
     $kolom = $kolom + 1;
@@ -186,7 +183,6 @@ function gevonden_diagonaal2(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
 
     $cel = $regel * $aantal_kolommen + $kolom;
     $a_gevonden[] = $cel;
-    //kleurCel($cel, 'red');
     $kolom_s = $kolom_s + 1;
     $regel_s = $regel_s + 1;
     $kolom = $kolom - 1;
@@ -200,7 +196,6 @@ function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
     $kolom = $kolom + 1;
     $uitgevoerd = 0;
     $cel = 0;
-    //herstel($cel);
 }
 
 function niet_gevonden_verticaal(&$regel, &$uitgevoerd, &$cel) {
@@ -209,7 +204,6 @@ function niet_gevonden_verticaal(&$regel, &$uitgevoerd, &$cel) {
     $regel = $regel + 1;
     $uitgevoerd = 0;
     $cel = 0;
-    //herstel($cel);
 }
 
 function niet_gevonden_diagonaal1(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
@@ -223,7 +217,6 @@ function niet_gevonden_diagonaal1(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
     $regel_s = 0;
     $uitgevoerd = 0;
     $cel = 0;
-    //herstel($cel);
 }
 
 function niet_gevonden_diagonaal2(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
@@ -236,7 +229,6 @@ function niet_gevonden_diagonaal2(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
     $regel_s = 0;
     $uitgevoerd = 0;
     $cel = 0;
-    //herstel($cel);
 }
 
 function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
@@ -250,21 +242,22 @@ function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
     }
 }
 
-function herstel(&$cel) {
-    global $keuze;
-    echo '<script type="text/javascript">';
-    echo '$("#over td").css("background-color", "white");';
-    echo '$("#klik' . $keuze . ' td").css("background-color", "transparent");';
-    echo '$("#klik' . $keuze . ' td").css("color", "transparent");';
-    echo '</script>';
-}
-
 function kleurCel($cel, $kleur) {
     global $keuze;
     echo '<script type="text/javascript">';
     echo ' $("#klik' . $keuze . ' .cel' . $cel . '").css("background-color", "' . $kleur . '");';
     echo ' $("#klik' . $keuze . ' .cel' . $cel . '").css("color", "black");';
     echo '</script>';
+}
+
+function kleuren(&$a_gevonden, &$done, &$cel, &$zoek, &$einde) {
+    $a_gevonden = array_reverse($a_gevonden);
+    $done = 0;
+    while ($done < strlen($zoek) and $einde == 1) {
+        $cel = $a_gevonden[$done];
+        kleurCel($cel, 'red');
+        $done = $done + 1;
+    }
 }
 
 function build_table2($woordzoeker) {
@@ -298,7 +291,6 @@ function build_table2($woordzoeker) {
     echo '</script>';
 
 echo build_table2($woordzoeker);
-//echo $keuze;
 
 zoek_horizontaal($regel, $aantal_regels, $kolom);
 zoek_verticaal($regel, $aantal_kolommen, $kolom);
@@ -314,13 +306,7 @@ zoek_verticaal($regel, $aantal_kolommen, $kolom);
 zoek_diagonaal1($regel, $aantal_regels, $kolom);
 zoek_diagonaal2($regel, $aantal_regels, $kolom);
 
-$a_gevonden = array_reverse($a_gevonden);
-$done = 0;
-while ($done < strlen($zoek)){
-$cel = $a_gevonden[$done];
-kleurCel($cel, 'red');    
-$done = $done + 1;
-}
+kleuren($a_gevonden, $done, $cel, $zoek, $einde);
 
 echo '<script type="text/javascript">';
 echo '$("#loading_spinner").hide()';

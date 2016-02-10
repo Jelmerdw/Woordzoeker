@@ -1,6 +1,6 @@
-r-ba--v-ra
-ama------s
---n---voer
+r-ba-tv-ra
+ama--e---s
+--netsvoer
 --au----ia
 --aal--n-n
 --n-v-g-sd
@@ -24,3 +24,4 @@ lava
 ring
 bad
 de
+testen

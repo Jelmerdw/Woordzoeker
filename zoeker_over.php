@@ -22,6 +22,15 @@ $regel_s = 0;
 $regel_v = -1;
 $kolom_v = -1;
 
+$boven = 0;
+$onder = 0;
+$links = 0;
+$rechts = 0;
+$boven_d = 0;
+$onder_d = 0;
+$links_d = 0;
+$rechts_d = 0;
+
 function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
     $regel = 0;
@@ -74,6 +83,20 @@ function zoek_diagonaal2(&$regel, &$aantal_regels, &$kolom) {
     while ($regel < $aantal_regels) {
         $kolom = 0;
         controleer_diagonaal2($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
+        $regel = $regel + 1;
+    }
+}
+
+function zoek_woordslang(&$regel, &$aantal_regels, &$kolom) {
+    global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
+    $regel = 0;
+    $kolom = 0;
+    $regel_v = -1;
+    $kolom_v = -1;
+
+    while ($regel < $aantal_regels) {
+        $kolom = 0;
+        controleer_woordslang($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
         $regel = $regel + 1;
     }
 }
@@ -150,6 +173,16 @@ function controleer_diagonaal2(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeke
     }
 }
 
+function controleer_woordslang(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
+    while ($kolom < $aantal_kolommen and $einde == 0) {
+        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+            gevonden_woordslang($regel, $aantal_kolommen, $kolom);
+        } else {
+            niet_gevonden_woordslang($kolom, $uitgevoerd, $cel);
+        }
+    }
+}
+
 function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
     global $a_gevonden;
     $cel = $regel * $aantal_kolommen + $kolom;
@@ -189,6 +222,90 @@ function gevonden_diagonaal2(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
     $regel = $regel + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
 }
+
+function gevonden_woordslang(&$regel, &$aantal_kolommen, &$kolom) {
+    global $a_gevonden, $aantal_regels, $boven_d, $onder_d, $links_d, $rechts_d, $boven, $onder, $links, $rechts, $verplaatsing;
+    $cel = $regel * $aantal_kolommen + $kolom;
+    $a_gevonden[] = $cel;
+    if ($regel > 0 and $boven_d == 0) {
+        $regel = $regel - 1;
+        $boven = $boven + 1;
+        $verplaatsing[] = 'b';
+        $onder_d = 1;
+        //echo 'boven';
+    } else {
+        if ($regel < $aantal_regels - 1 and $onder_d == 0) {
+            $regel = $regel + 1;
+            $onder = $onder + 1;
+            $verplaatsing[] = 'o';
+            $boven_d = 1;
+            //echo 'onder';
+        } else {
+            if ($kolom > 0 and $rechts_d == 0) {
+                $kolom = $kolom + 1;
+                $rechts = $rechts + 1;
+                $verplaatsing[] = 'r';
+                $links_d = 1;
+                //echo 'rechts';
+            } else {
+                if ($kolom < $aantal_kolommen - 1 and $links_d == 0) {
+                    $kolom = $kolom - 1;
+                    $links = $links + 1;
+                    $verplaatsing[] = 'l';
+                    $rechts_d = 1;
+                    //echo 'links';
+                }
+            }
+        }
+        uitvoeringen($uitgevoerd, $herhalingen, $einde);
+    }
+}
+
+function niet_gevonden_woordslang(&$kolom, &$uitgevoerd, &$cel) {
+    global $a_gevonden, $aantal_regels, $boven_d, $onder_d, $links_d, $rechts_d, $boven, $onder, $links, $rechts, $einde, $verplaatsing, $regel;
+    //if (isset($verplaatsing)) {
+        $laatste = end($verplaatsing);
+        echo $laatste;
+        if ($laatste == 'b') {
+            $regel = $regel - 1;
+            $boven_d = 1;
+            $uitgevoerd = $uitgevoerd - 1;
+            array_pop($verplaatsing);
+        } else {
+            if ($laatste == 'o') {
+                $regel = $regel + 1;
+                $onder_d = 1;
+                $uitgevoerd = $uitgevoerd - 1;
+                array_pop($verplaatsing);
+            } else {
+                if ($laatste == 'r') {
+                    $kolom = $kolom - 1;
+                    $rechts_d = 1;
+                    $uitgevoerd = $uitgevoerd - 1;
+                    array_pop($verplaatsing);
+                } else {
+                    if ($laatste == 'l') {
+                        $kolom = $kolom + 1;
+                        $links_d = 1;
+                        $uitgevoerd = $uitgevoerd - 1;
+                        array_pop($verplaatsing);
+                    } else {
+                        $kolom = $kolom + 1;
+                        $boven_d = 0;
+                        $onder_d = 0;
+                        $links_d = 0;
+                        $rechts_d = 0;
+                    }
+                }
+            }
+        }
+    //}
+    //else $kolom = $kolom + 1;
+}
+
+//echo $laatste;
+//$einde = 1;
+
 
 function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
     global $regel_v, $a_gevonden;
@@ -249,31 +366,35 @@ function kleurCel($cel, $kleur) {
     echo '</script>';
 }
 
-function kleuren(&$a_gevonden, &$done, &$cel, &$zoek) {
+function kleuren(&$a_gevonden, &$done, &$cel, &$zoek, &$einde) {
     $a_gevonden = array_reverse($a_gevonden);
     $done = 0;
-    while ($done < strlen($zoek)) {
+    while ($done < strlen($zoek) and $einde == 1) {
         $cel = $a_gevonden[$done];
         kleurCel($cel, 'yellow');
         $done = $done + 1;
     }
 }
 
-zoek_horizontaal($regel, $aantal_regels, $kolom);
-zoek_verticaal($regel, $aantal_kolommen, $kolom);
-zoek_diagonaal1($regel, $aantal_regels, $kolom);
-zoek_diagonaal2($regel, $aantal_regels, $kolom);
+//zoek_horizontaal($regel, $aantal_regels, $kolom);
+//zoek_verticaal($regel, $aantal_kolommen, $kolom);
+//zoek_diagonaal1($regel, $aantal_regels, $kolom);
+//zoek_diagonaal2($regel, $aantal_regels, $kolom);
+//$zoek = strrev($zoek);
+//$herhalingen = strlen($zoek);
+//$arrayzoek = str_split($zoek);
+//zoek_horizontaal($regel, $aantal_regels, $kolom);
+//zoek_verticaal($regel, $aantal_kolommen, $kolom);
+//zoek_diagonaal1($regel, $aantal_regels, $kolom);
+//zoek_diagonaal2($regel, $aantal_regels, $kolom);
+//kleuren($a_gevonden, $done, $cel, $zoek, $einde);
 
-$zoek = strrev($zoek);
-$herhalingen = strlen($zoek);
-$arrayzoek = str_split($zoek);
+zoek_woordslang($regel, $aantal_regels, $kolom);
 
-zoek_horizontaal($regel, $aantal_regels, $kolom);
-zoek_verticaal($regel, $aantal_kolommen, $kolom);
-zoek_diagonaal1($regel, $aantal_regels, $kolom);
-zoek_diagonaal2($regel, $aantal_regels, $kolom);
-
-kleuren($a_gevonden, $done, $cel, $zoek);
+print"<pre>";
+print_r($a_gevonden);
+echo '<br>';
+//print_r($verplaatsing);
 
 echo '<script type="text/javascript">';
 echo '$("#loading_spinner").hide()';
