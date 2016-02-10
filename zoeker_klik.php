@@ -282,13 +282,13 @@ function build_table2($woordzoeker) {
     return $html;
 }
 
-    echo '<script type="text/javascript">';
-    echo ' $("#klik' . $keuze . '").css("border-collapse", "collapse");';
-    echo ' $("#klik' . $keuze . '").css("background-color", "transparent");';
-    echo ' $("#klik' . $keuze . '").css("margin-top", "10px");';
-    echo ' $("#klik' . $keuze . '").css("position", "absolute");';
-    echo ' $("#klik' . $keuze . '").css("color", "transparent");';
-    echo '</script>';
+echo '<script type="text/javascript">';
+echo ' $("#klik' . $keuze . '").css("border-collapse", "collapse");';
+echo ' $("#klik' . $keuze . '").css("background-color", "transparent");';
+echo ' $("#klik' . $keuze . '").css("margin-top", "10px");';
+echo ' $("#klik' . $keuze . '").css("position", "absolute");';
+echo ' $("#klik' . $keuze . '").css("color", "transparent");';
+echo '</script>';
 
 echo build_table2($woordzoeker);
 

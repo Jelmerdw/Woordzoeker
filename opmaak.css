@@ -1,5 +1,6 @@
 body {
     background-color: #adbcd1;
+    overflow-x: scroll;
 }
 
 #body {
@@ -20,14 +21,13 @@ td {
 
 table {
     border: solid 1px #000000;
-    height: auto;
-    width: auto;
+    white-space: nowrap;
 }
 #over {
     background-color: #FFFFFF;
     border-collapse: collapse;
     margin-top: 10px;
-    position: absolute;
+    float: left;
     box-shadow: 4px 5px 5px #333333;
 }
 
@@ -35,8 +35,10 @@ table {
     background-color: transparent;
     border-collapse: collapse;
     margin-top: 10px;
+    float: left;
     position: absolute;
     color: transparent;
+    box-shadow: 4px 5px 5px #333333;
 }
 
 #woordjes {
