@@ -376,24 +376,26 @@ function kleuren(&$a_gevonden, &$done, &$cel, &$zoek, &$einde) {
     }
 }
 
-//zoek_horizontaal($regel, $aantal_regels, $kolom);
-//zoek_verticaal($regel, $aantal_kolommen, $kolom);
-//zoek_diagonaal1($regel, $aantal_regels, $kolom);
-//zoek_diagonaal2($regel, $aantal_regels, $kolom);
-//$zoek = strrev($zoek);
-//$herhalingen = strlen($zoek);
-//$arrayzoek = str_split($zoek);
-//zoek_horizontaal($regel, $aantal_regels, $kolom);
-//zoek_verticaal($regel, $aantal_kolommen, $kolom);
-//zoek_diagonaal1($regel, $aantal_regels, $kolom);
-//zoek_diagonaal2($regel, $aantal_regels, $kolom);
-//kleuren($a_gevonden, $done, $cel, $zoek, $einde);
+zoek_horizontaal($regel, $aantal_regels, $kolom);
+zoek_verticaal($regel, $aantal_kolommen, $kolom);
+zoek_diagonaal1($regel, $aantal_regels, $kolom);
+zoek_diagonaal2($regel, $aantal_regels, $kolom);
 
-zoek_woordslang($regel, $aantal_regels, $kolom);
+$zoek = strrev($zoek);
+$herhalingen = strlen($zoek);
+$arrayzoek = str_split($zoek);
 
-print"<pre>";
-print_r($a_gevonden);
-echo '<br>';
+zoek_horizontaal($regel, $aantal_regels, $kolom);
+zoek_verticaal($regel, $aantal_kolommen, $kolom);
+zoek_diagonaal1($regel, $aantal_regels, $kolom);
+zoek_diagonaal2($regel, $aantal_regels, $kolom);
+kleuren($a_gevonden, $done, $cel, $zoek, $einde);
+
+//zoek_woordslang($regel, $aantal_regels, $kolom);
+
+//print"<pre>";
+//print_r($a_gevonden);
+//echo '<br>';
 //print_r($verplaatsing);
 
 echo '<script type="text/javascript">';
