@@ -59,7 +59,8 @@ table {
 
 #copyright {
     position: absolute;
-    top: 0; 
+    top: 0;
+    right: 20;
 }
 
 #loading_spinner {

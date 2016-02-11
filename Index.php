@@ -60,7 +60,11 @@ session_start();
                 <input type="file" name="file" size="60" />
                 <input type="submit" value="Lees" />
             </form>
-
+            <form>
+                <input type="checkbox" name="zoekmethode" checked="on" value="horizontaal"/> Horizontaal
+                <input type="checkbox" name="zoekmethode" checked="on" value="verticaal"/> Verticaal
+                <input type="checkbox" name="zoekmethode" checked="on" value="diagonaal"/> Diagonaal
+            </form>
 
 
             <?php
