@@ -156,6 +156,28 @@ session_start();
                         return $html;
                     }
 
+                    function build_table_transparent($woordzoeker) {
+                        // start table
+                        $html = '<table id="transparent">';
+                        $getal0 = 0;
+                        // data rows
+                        foreach ($woordzoeker as $key => $value) {
+                            $html .= '<tr>';
+                            foreach ($value as $key2 => $value2) {
+
+                                $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
+                                $getal0 = $getal0 + 1;
+                            }
+                            $html .= '</tr>';
+                        }
+
+                        // finish table and return it
+
+                        $html .= '</table>';
+                        return $html;
+                    }
+
+                    echo build_table_transparent($woordzoeker);
                     echo build_table1($woordzoeker);
 
                     $gegeven_woorden = 1;
