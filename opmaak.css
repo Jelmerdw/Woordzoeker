@@ -32,6 +32,13 @@ table {
     box-shadow: 4px 5px 5px #333333;
 }
 
+#transparent {
+    background-color: transparent;
+    border-collapse: collapse;
+    margin-top: 10px;
+    float: left;
+}
+
 #woordjes {
     background-color: #FFFFFF;
     border: solid 1px #000000;
@@ -39,7 +46,7 @@ table {
     height: auto;
     float: left;
     text-align: center;
-    margin-left: 800px;
+    margin-left: 20px;
     margin-top: 10px;
     padding: 10px 30px 10px 30px;
     box-shadow: 4px 5px 5px #333333;
