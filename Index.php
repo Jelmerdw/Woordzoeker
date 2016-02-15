@@ -1,5 +1,8 @@
 <?php
 session_start();
+$_SESSION["horizontaal"] = 1;
+$_SESSION["verticaal"] = 1;
+$_SESSION["diagonaal"] = 1;
 ?>
 
 <html>
@@ -49,6 +52,22 @@ session_start();
                     $("#div_loader").empty();
                     $('#loading_spinner').hide();
                 });
+
+                $('#horizontaal').change(function () {
+                    $('#loading_spinner').show();
+                    $("#div_loader").load('horizontaal.php');
+                });
+
+                $('#verticaal').change(function () {
+                    $('#loading_spinner').show();
+                    $("#div_loader").load('verticaal.php');
+                });
+
+                $('#diagonaal').change(function () {
+                    $('#loading_spinner').show();
+                    $("#div_loader").load('diagonaal.php');
+                });
+
             });
         </script>
 
@@ -60,13 +79,13 @@ session_start();
                 <input type="file" name="file" size="60" />
                 <input type="submit" value="Lees" />
             </form>
-            
+
             <form>
-                <input type="checkbox" onclick="this.form.submit();" name="zoekmethode" checked="on" value="horizontaal"/> Horizontaal
-                <input type="checkbox" onclick="this.form.submit();" name="zoekmethode" checked="on" value="verticaal"/> Verticaal
-                <input type="checkbox" onclick="this.form.submit();" name="zoekmethode" checked="on" value="diagonaal"/> Diagonaal
+                <input id="horizontaal" type="checkbox" name="zoekmethode" checked="on" value="horizontaal"/> Horizontaal
+                <input id="verticaal" type="checkbox" name="zoekmethode" checked="on" value="verticaal"/> Verticaal
+                <input id="diagonaal" type="checkbox" name="zoekmethode" checked="on" value="diagonaal"/> Diagonaal
             </form>
-            
+
             <?php
             if ($_FILES) {
 
