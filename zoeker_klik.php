@@ -22,6 +22,10 @@ $regel_s = 0;
 $regel_v = -1;
 $kolom_v = -1;
 
+$horizontaal = $_SESSION["horizontaal"];
+$verticaal = $_SESSION["verticaal"];
+$diagonaal = $_SESSION["diagonaal"];
+
 function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
     $regel = 0;
@@ -292,21 +296,38 @@ echo '</script>';
 
 echo build_table2($woordzoeker);
 
-zoek_horizontaal($regel, $aantal_regels, $kolom);
-zoek_verticaal($regel, $aantal_kolommen, $kolom);
-zoek_diagonaal1($regel, $aantal_regels, $kolom);
-zoek_diagonaal2($regel, $aantal_regels, $kolom);
+if ($horizontaal == 1) {
+    zoek_horizontaal($regel, $aantal_regels, $kolom);
+}
+if ($verticaal == 1) {
+    zoek_verticaal($regel, $aantal_kolommen, $kolom);
+}
+if ($diagonaal == 1) {
+    zoek_diagonaal1($regel, $aantal_regels, $kolom);
+    zoek_diagonaal2($regel, $aantal_regels, $kolom);
+}
 
 $zoek = strrev($zoek);
 $herhalingen = strlen($zoek);
 $arrayzoek = str_split($zoek);
 
-zoek_horizontaal($regel, $aantal_regels, $kolom);
-zoek_verticaal($regel, $aantal_kolommen, $kolom);
-zoek_diagonaal1($regel, $aantal_regels, $kolom);
-zoek_diagonaal2($regel, $aantal_regels, $kolom);
+if ($horizontaal == 1) {
+    zoek_horizontaal($regel, $aantal_regels, $kolom);
+}
+if ($verticaal == 1) {
+    zoek_verticaal($regel, $aantal_kolommen, $kolom);
+}
+if ($diagonaal == 1) {
+    zoek_diagonaal1($regel, $aantal_regels, $kolom);
+    zoek_diagonaal2($regel, $aantal_regels, $kolom);
+}
 
+if ($horizontaal == 0 and $verticaal == 0 and $diagonaal == 0){
+    return;
+}
+else{
 kleuren($a_gevonden, $done, $cel, $zoek, $einde);
+}
 
 echo '<script type="text/javascript">';
 echo '$("#loading_spinner").hide()';

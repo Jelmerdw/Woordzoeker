@@ -407,6 +407,7 @@ if ($diagonaal == 1) {
 }
 
 if ($horizontaal == 0 and $verticaal == 0 and $diagonaal == 0){
+    return;
 }
 else{
 kleuren($a_gevonden, $done, $cel, $zoek, $einde);

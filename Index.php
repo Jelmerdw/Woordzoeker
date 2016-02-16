@@ -14,6 +14,8 @@ $_SESSION["diagonaal"] = 1;
         <script>
             $(document).ready(function ()
             {
+
+                // Laadt het php zoek-script voor mouse-over van het woord waarover je muis is:
                 $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
 
@@ -23,15 +25,15 @@ $_SESSION["diagonaal"] = 1;
                     $('#loading_spinner').show();
                 });
 
+                // Laadt het php zoek-script voor mouse-klik van het woord waarop geklikt is:
                 $("p").click(function () {
                     var Class = $(this).attr("class");
 
                     var Class2 = 'zoeker_klik.php?keuze=' + Class + ''
 
+                    // Als het woord al gekleurd was, wordt het weer ontkleurd, zoniet dan wordt het gekleurd:
                     if ($('#woord' + Class + '').length) {
-                        //$('#loading_spinner').show();
                         $('#woord' + Class + '').remove();
-
                     }
                     else {
                         $("#body").append("<div id='woord" + Class + "'></div>");
@@ -45,6 +47,7 @@ $_SESSION["diagonaal"] = 1;
                     }
                 });
 
+                //Als je de muis weer van het woord haalt wordt het woord weer ontkleurd:
                 $("p").mouseout(function () {
                     window.stop();
                     //$("td").css("background-color", "white");
@@ -53,6 +56,7 @@ $_SESSION["diagonaal"] = 1;
                     $('#loading_spinner').hide();
                 });
 
+                // Als de horizontaal, verticaal of diagonaal wordt uitgevinkt wordt deze zoekmethode uitgezet:
                 $('#horizontaal').change(function () {
                     $('#loading_spinner').show();
                     $("#div_loader").load('horizontaal.php');
@@ -89,12 +93,12 @@ $_SESSION["diagonaal"] = 1;
             <?php
             if ($_FILES) {
 
-                //Checking if file is selected or not
+                //Er wordt gekeken of het bestand geselecteerd is:
 
                 if ($_FILES['file']['name'] != "") {
 
 
-                    //Checking if the file is plain text or not
+                    //Er wordt gekeken of het bestand een text-bestand is:
 
                     if (isset($_FILES) && $_FILES['file']['type'] != 'text/plain') {
 
@@ -103,15 +107,15 @@ $_SESSION["diagonaal"] = 1;
                         exit();
                     }
 
-                    //Getting and storing the temporary file name of the uploaded file
+                    //De bestandsnaar wordt tijdelijk opgeslagen:
                     $fileName = $_FILES['file']['tmp_name'];
 
-                    //Throw an error message if the file could not be open
-                    $file = fopen($fileName, "r") or exit("Unable to open file!");
+                    //Bericht wanneer het bestand niet geopend kond worden:
+                    $file = fopen($fileName, "r") or exit("Het bestand kon niet geopend worden. Probeer het opnieuw.");
 
 
 
-// Reading a .txt file
+                    // Lees het textbestand naar een array:
                     $aantal_regels = 0;
                     $einde = 0;
                     $aantal_woorden = 0;
@@ -144,7 +148,7 @@ $_SESSION["diagonaal"] = 1;
 
                     fclose($file);
 
-                    //Streepjes worden letters:
+                    //Zet de streepjes om naar random letters:
                     $letters = "abcdefghijklmnopqrstuvwxyz";
                     $lettersArray = str_split($letters);
                     foreach ($woordzoeker as $rij => $regel) {
@@ -156,58 +160,49 @@ $_SESSION["diagonaal"] = 1;
                         }
                     }
 
+                    //De gemaakte woordzoeker wordt in een session gezet:
                     $_SESSION["woordzoeker"] = $woordzoeker;
 
+                    //Functie: van de gemaakte woordzoeker wordt een mooie tabel gemaakt:
                     function build_table1($woordzoeker) {
-                        // start table
                         $html = '<table id="over">';
                         $getal0 = 0;
-                        // data rows
                         foreach ($woordzoeker as $key => $value) {
                             $html .= '<tr>';
                             foreach ($value as $key2 => $value2) {
-
                                 $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
                                 $getal0 = $getal0 + 1;
                             }
                             $html .= '</tr>';
                         }
-
-                        // finish table and return it
-
                         $html .= '</table>';
                         return $html;
                     }
 
+                    //Functie: Maak de tabel nog een keer, naar nu met id=transparent:
                     function build_table_transparent($woordzoeker) {
-                        // start table
                         $html = '<table id="transparent">';
                         $getal0 = 0;
-                        // data rows
                         foreach ($woordzoeker as $key => $value) {
                             $html .= '<tr>';
                             foreach ($value as $key2 => $value2) {
-
                                 $html .= "<td class='cel$getal0'>" . $value2 . '</td>';
                                 $getal0 = $getal0 + 1;
                             }
                             $html .= '</tr>';
                         }
-
-                        // finish table and return it
-
                         $html .= '</table>';
                         return $html;
                     }
 
+                    //De tabellen worden gemaakt:
                     echo build_table_transparent($woordzoeker);
                     echo build_table1($woordzoeker);
 
                     $gegeven_woorden = 1;
                     $getal1 = 1;
 
-                    $margin = $aantal_kolommen * 41 + 1 + 20;
-
+                    // De woorden die gezocht moeten worden, worden onder elkaar in een div gezet:
                     echo "<div id='woordjes'>";
 
                     while ($gegeven_woorden < $aantal_woorden) {
@@ -217,15 +212,14 @@ $_SESSION["diagonaal"] = 1;
                         $gegeven_woorden = $gegeven_woorden + 1;
                     }
                     echo "</div>";
-                    //print"<pre>";
-                    //print_r($letter);
+                    
+                    //Als er geen bestand is geselecteerd bij het inlezen, wordt een melding weergegeven:
                 } else {
                     if (isset($_FILES) && $_FILES['file']['type'] == '')
-                        echo "<span>Please Choose a file by click on 'Browse' or 'Choose File' button.</span>";
+                        echo "<span>Selecteer eerst een text-bestand.</span>";
                 }
             }
             ?>
-
             <div id="div_loader"></div>
             <div id="div_loader1"></div>
             <img id="loading_spinner" src="loading_spinner.gif">
