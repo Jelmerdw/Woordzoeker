@@ -58,17 +58,14 @@ $_SESSION["diagonaal"] = 1;
 
                 // Als de horizontaal, verticaal of diagonaal wordt uitgevinkt wordt deze zoekmethode uitgezet:
                 $('#horizontaal').change(function () {
-                    $('#loading_spinner').show();
                     $("#div_loader").load('horizontaal.php');
                 });
 
                 $('#verticaal').change(function () {
-                    $('#loading_spinner').show();
                     $("#div_loader").load('verticaal.php');
                 });
 
                 $('#diagonaal').change(function () {
-                    $('#loading_spinner').show();
                     $("#div_loader").load('diagonaal.php');
                 });
 
