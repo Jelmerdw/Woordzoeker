@@ -2,9 +2,12 @@
 
 session_start();
 
+//De woorden die in de woordzoeker staan worden opgehaald:
 $woorden = $_SESSION["woorden"];
+//De gemaakte keuze, naar welk woord er gezocht moet worden, wordt opgehaald:
 $keuze = $_GET['keuze'];
 
+//$zoek wordt het woord dat gezocht moet worden, herhalingen is het aantal letters van het woord
 $zoek = $woorden[$keuze];
 $herhalingen = strlen($zoek);
 $arrayzoek = str_split($zoek);
