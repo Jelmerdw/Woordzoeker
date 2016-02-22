@@ -223,7 +223,7 @@ $_SESSION["diagonaal"] = 1;
             <img id="loading_spinner" src="loading_spinner.gif">
             <div class="my_update_panel"></div>
             <div id="copyright">
-                <h4>&#169; Jelmer, Luna en Stijn.</h4>
+                <h4>&#169; Jelmer, Stijn en Luna.</h4>
             </div>
         </div>
     </body>
