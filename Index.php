@@ -1,5 +1,6 @@
 <?php
 session_start();
+//Horizontaal, verticaal en diagonaal staat standaard aan (1):
 $_SESSION["horizontaal"] = 1;
 $_SESSION["verticaal"] = 1;
 $_SESSION["diagonaal"] = 1;
