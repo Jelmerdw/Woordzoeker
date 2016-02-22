@@ -37,10 +37,17 @@ class StackTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $d);
     }
     
-    function test_uitvoeringen() {
+    function test_uitvoeringen1() {
         $u = 0;
         $h = 1;
         onoff_verticaal($u, $h);
         $this->assertEquals(1, $u);
+    }
+    function test_uitvoeringen2() {
+        $u = 1;
+        $h = 1;
+        $e = 0;
+        onoff_verticaal($u, $h, $e);
+        $this->assertEquals(1, $e);
     }
 }
