@@ -7,11 +7,14 @@ $woorden = $_SESSION["woorden"];
 //De gemaakte keuze, naar welk woord er gezocht moet worden, wordt opgehaald:
 $keuze = $_GET['keuze'];
 
-//$zoek wordt het woord dat gezocht moet worden, herhalingen is het aantal letters van het woord
+//$zoek wordt het woord dat gezocht moet worden:
 $zoek = $woorden[$keuze];
+//Er wordt gekeken hoeveel letters het woord heeft, dit is het aantal herhalingen:
 $herhalingen = strlen($zoek);
+//Het woord wat gezocht moet worden wordt in losse letters gesplitst en in een array gezet:
 $arrayzoek = str_split($zoek);
 
+//
 $aantal_regels = $_SESSION["aantal_regels"];
 $aantal_kolommen = $_SESSION["aantal_kolommen"];
 $woordzoeker = $_SESSION["woordzoeker"];
