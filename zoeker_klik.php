@@ -14,9 +14,10 @@ $herhalingen = strlen($zoek);
 //Het woord wat gezocht moet worden wordt in losse letters gesplitst en in een array gezet:
 $arrayzoek = str_split($zoek);
 
-//
+//Het aantal regels en kolommen wordt opgehaald:
 $aantal_regels = $_SESSION["aantal_regels"];
 $aantal_kolommen = $_SESSION["aantal_kolommen"];
+//De gemaakte woordzoeker wordt weer opgehaald en de beginwaardes worden gezet:
 $woordzoeker = $_SESSION["woordzoeker"];
 $uitgevoerd = 0;
 $kolom = 0;
@@ -28,10 +29,14 @@ $regel_s = 0;
 $regel_v = -1;
 $kolom_v = -1;
 
+//Er wordt opgehaald of horizontaal, verticaal en diagionaal zoeken aan of uit staat:
 $horizontaal = $_SESSION["horizontaal"];
 $verticaal = $_SESSION["verticaal"];
 $diagonaal = $_SESSION["diagonaal"];
 
+//////////////////////////////////
+//////////////////////////////////
+//De functie die horizontaal zoekt:
 function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
     $regel = 0;
@@ -39,6 +44,8 @@ function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     $regel_v = -1;
     $kolom_v = -1;
 
+    //Zolang hij niet alle regels heeft doorzocht, blijft hij zoeken:
+    //Bij elke nieuwe regel wordt de kolom weer op nul gezet:
     while ($regel < $aantal_regels) {
         $kolom = 0;
         controleer_horizontaal($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
@@ -46,6 +53,57 @@ function zoek_horizontaal(&$regel, &$aantal_regels, &$kolom) {
     }
 }
 
+//Er wordt in een regel gezochht:
+function controleer_horizontaal(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
+    global $regel_v;
+    //Zo lang hij niet alle kolommen heeft doorzocht, blijft hij zoeken:
+    while ($kolom < $aantal_kolommen and $einde == 0) {
+        //Er wordt gekeken of de letter overeenkomt met de gezochte letter:
+        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+            //Als dit de eerste letter is die gevonden is, wordt de regel van deze letter bewaard:
+            if ($regel_v == -1) {
+                $regel_v = $regel;
+                gevonden_horizontaal($regel, $aantal_kolommen, $kolom);
+            } else {
+                //Als er al eeerder een letter is gevoden, wordt er gekeken of 
+                //de letter op de zelfde regel staat als de vorige gevonden letter:
+                if ($regel == $regel_v) {
+                    gevonden_horizontaal($regel, $aantal_kolommen, $kolom);
+                } else {
+                    niet_gevonden_horizontaal($kolom, $uitgevoerd, $cel);
+                }
+            }
+        } else {
+            niet_gevonden_horizontaal($kolom, $uitgevoerd, $cel);
+        }
+    }
+}
+
+//Als de letter gevonden is, wordt de bijbehorende cel berekend en deze cel 
+//wordt in een array opgeslagen. De kolom wordt een verder gezet, om naar de
+//volgende letter te zoeken:
+function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
+    global $a_gevonden;
+    $cel = $regel * $aantal_kolommen + $kolom;
+    $a_gevonden[] = $cel;
+    $kolom = $kolom + 1;
+    uitvoeringen($uitgevoerd, $herhalingen, $einde);
+}
+
+//Als de letter niet gevonden is, wordt de eventuele opgeslagen regel weer uit (-1) gezet.
+//De kolom wordt een verder gezet, om verder te zoeken. Uitgevoerd wordt naar 0 gezet, zodat
+//er weer naar de eerste letter van het woordt gezocht gaat worden:
+function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
+    global $regel_v;
+    $regel_v = -1;
+    $kolom = $kolom + 1;
+    $uitgevoerd = 0;
+    $cel = 0;
+}
+
+//////////////////////////////////
+//////////////////////////////////
+//De functie die verticaal zoekt:
 function zoek_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
     global $aantal_regels, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
     $regel = 0;
@@ -60,6 +118,45 @@ function zoek_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
     }
 }
 
+function controleer_verticaal(&$regel, &$aantal_regels, &$einde, &$woordzoeker, &$kolom, &$arrayzoek, &$uitgevoerd, &$cel, &$aantal_kolommen) {
+    global $kolom_v;
+    while ($regel < $aantal_regels and $einde == 0) {
+        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
+            if ($kolom_v == -1) {
+                $kolom_v = $kolom;
+                gevonden_verticaal($kolom, $aantal_kolommen, $regel);
+            } else {
+                if ($kolom == $kolom_v) {
+                    gevonden_verticaal($kolom, $aantal_kolommen, $regel);
+                } else {
+                    niet_gevonden_verticaal($regel, $uitgevoerd, $cel);
+                }
+            }
+        } else {
+            niet_gevonden_verticaal($regel, $uitgevoerd, $cel);
+        }
+    }
+}
+
+function gevonden_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
+    global $a_gevonden;
+    $cel = $regel * $aantal_kolommen + $kolom;
+    $a_gevonden[] = $cel;
+    $regel = $regel + 1;
+    uitvoeringen($uitgevoerd, $herhalingen, $einde);
+}
+
+function niet_gevonden_verticaal(&$regel, &$uitgevoerd, &$cel) {
+    global $kolom_v;
+    $kolom_v = -1;
+    $regel = $regel + 1;
+    $uitgevoerd = 0;
+    $cel = 0;
+}
+
+//////////////////////////////////
+//////////////////////////////////
+//De functie die diagonaal zoekt:
 function zoek_diagonaal1(&$regel, &$aantal_regels, &$kolom) {
     global $aantal_kolommen, $einde, $woordzoeker, $arrayzoek, $uitgevoerd, $cel, $regel_v, $kolom_v;
     $regel = 0;
@@ -85,46 +182,6 @@ function zoek_diagonaal2(&$regel, &$aantal_regels, &$kolom) {
         $kolom = 0;
         controleer_diagonaal2($kolom, $aantal_kolommen, $einde, $woordzoeker, $regel, $arrayzoek, $uitgevoerd, $cel);
         $regel = $regel + 1;
-    }
-}
-
-function controleer_horizontaal(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeker, &$regel, &$arrayzoek, &$uitgevoerd, &$cel) {
-    global $regel_v;
-    while ($kolom < $aantal_kolommen and $einde == 0) {
-        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-            if ($regel_v == -1) {
-                $regel_v = $regel;
-                gevonden_horizontaal($regel, $aantal_kolommen, $kolom);
-            } else {
-                if ($regel == $regel_v) {
-                    gevonden_horizontaal($regel, $aantal_kolommen, $kolom);
-                } else {
-                    niet_gevonden_horizontaal($kolom, $uitgevoerd, $cel);
-                }
-            }
-        } else {
-            niet_gevonden_horizontaal($kolom, $uitgevoerd, $cel);
-        }
-    }
-}
-
-function controleer_verticaal(&$regel, &$aantal_regels, &$einde, &$woordzoeker, &$kolom, &$arrayzoek, &$uitgevoerd, &$cel, &$aantal_kolommen) {
-    global $kolom_v;
-    while ($regel < $aantal_regels and $einde == 0) {
-        if ($woordzoeker[$regel][$kolom] == $arrayzoek[$uitgevoerd]) {
-            if ($kolom_v == -1) {
-                $kolom_v = $kolom;
-                gevonden_verticaal($kolom, $aantal_kolommen, $regel);
-            } else {
-                if ($kolom == $kolom_v) {
-                    gevonden_verticaal($kolom, $aantal_kolommen, $regel);
-                } else {
-                    niet_gevonden_verticaal($regel, $uitgevoerd, $cel);
-                }
-            }
-        } else {
-            niet_gevonden_verticaal($regel, $uitgevoerd, $cel);
-        }
     }
 }
 
@@ -160,22 +217,6 @@ function controleer_diagonaal2(&$kolom, &$aantal_kolommen, &$einde, &$woordzoeke
     }
 }
 
-function gevonden_horizontaal(&$regel, &$aantal_kolommen, &$kolom) {
-    global $a_gevonden;
-    $cel = $regel * $aantal_kolommen + $kolom;
-    $a_gevonden[] = $cel;
-    $kolom = $kolom + 1;
-    uitvoeringen($uitgevoerd, $herhalingen, $einde);
-}
-
-function gevonden_verticaal(&$kolom, &$aantal_kolommen, &$regel) {
-    global $a_gevonden;
-    $cel = $regel * $aantal_kolommen + $kolom;
-    $a_gevonden[] = $cel;
-    $regel = $regel + 1;
-    uitvoeringen($uitgevoerd, $herhalingen, $einde);
-}
-
 function gevonden_diagonaal1(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
     global $regel_s, $kolom_s, $a_gevonden;
 
@@ -198,22 +239,6 @@ function gevonden_diagonaal2(&$regel, &$aantal_kolommen, &$kolom, &$diagonaal) {
     $kolom = $kolom - 1;
     $regel = $regel + 1;
     uitvoeringen($uitgevoerd, $herhalingen, $einde);
-}
-
-function niet_gevonden_horizontaal(&$kolom, &$uitgevoerd, &$cel) {
-    global $regel_v;
-    $regel_v = -1;
-    $kolom = $kolom + 1;
-    $uitgevoerd = 0;
-    $cel = 0;
-}
-
-function niet_gevonden_verticaal(&$regel, &$uitgevoerd, &$cel) {
-    global $kolom_v;
-    $kolom_v = -1;
-    $regel = $regel + 1;
-    $uitgevoerd = 0;
-    $cel = 0;
 }
 
 function niet_gevonden_diagonaal1(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
@@ -241,6 +266,9 @@ function niet_gevonden_diagonaal2(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
     $cel = 0;
 }
 
+
+//////////////////////////////////
+//////////////////////////////////
 function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
     global $uitgevoerd, $herhalingen, $einde;
 

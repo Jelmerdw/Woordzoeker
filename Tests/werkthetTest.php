@@ -3,6 +3,7 @@
 include './verticaal.php';
 include './horizontaal.php';
 include './diagonaal.php';
+include './zoeker_over.php';
 
 class StackTest extends PHPUnit_Framework_TestCase {
 
@@ -40,14 +41,15 @@ class StackTest extends PHPUnit_Framework_TestCase {
     function test_uitvoeringen1() {
         $u = 0;
         $h = 1;
-        onoff_verticaal($u, $h);
+        $e = 0;
+        uitvoeringen($u, $h, $e);
         $this->assertEquals(1, $u);
     }
     function test_uitvoeringen2() {
         $u = 1;
         $h = 1;
         $e = 0;
-        onoff_verticaal($u, $h, $e);
+        uitvoeringen($u, $h, $e);
         $this->assertEquals(1, $e);
     }
 }
