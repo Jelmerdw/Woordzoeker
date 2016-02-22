@@ -1,9 +1,8 @@
 <?php
-
 session_start();
 
 function onoff_verticaal(&$verticaal) {
-    //$verticaal = $_SESSION["verticaal"];
+
     if ($verticaal == 0) {
         $verticaal = 1;
     } else {
@@ -21,4 +20,3 @@ if (isset($_SESSION['verticaal'])) {
 }
 onoff_verticaal($verticaal);
 ?>
-
