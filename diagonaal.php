@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//Deze functie zet diagonaal zoeken aan (1) als het uit staat
+//en zet het uit (0) als het aan staat:
 function onoff_diagonaal(&$diagonaal) {
 
     if ($diagonaal == 0) {

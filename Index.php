@@ -51,7 +51,6 @@ $_SESSION["diagonaal"] = 1;
                 //Als je de muis weer van het woord haalt wordt het woord weer ontkleurd:
                 $("p").mouseout(function () {
                     window.stop();
-                    //$("td").css("background-color", "white");
                     $("#over td").css("background-color", "white");
                     $("#div_loader").empty();
                     $('#loading_spinner').hide();
