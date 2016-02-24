@@ -38,6 +38,9 @@ class StackTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $d);
     }
     
+    //Deze volgede twee tests geven een failure, omdat in de functie global staat. 
+    //Als je in de funcitie global even uit zet, krijgen we geen failure meer, 
+    //maar dan werkt de funcitie in ons programma niet goed meer:
     function test_uitvoeringen1() {
         $u = 0;
         $h = 1;
