@@ -513,9 +513,8 @@ if ($diagonaal == 1) {
     zoek_diagonaal2($regel, $aantal_regels, $kolom);
 }
 
-//Er wordt alleen gekleurd als één van de zoekrichtingen aan staat:
+//Er wordt alleen gekleurd als tenminste één van de zoekrichtingen aan staat:
 if ($horizontaal == 0 and $verticaal == 0 and $diagonaal == 0){
-    return;
 }
 else{
 kleuren($a_gevonden, $done, $cel, $zoek, $einde);

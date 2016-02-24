@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//Deze functie zet vertciaal zoeken aan (1) als het uit staat
+//Deze functie zet horizontaal zoeken aan (1) als het uit staat
 //en zet het uit (0) als het aan staat:
 function onoff_horizontaal(&$horizontaal) {
 

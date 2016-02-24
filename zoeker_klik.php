@@ -325,7 +325,7 @@ function niet_gevonden_diagonaal2(&$kolom, &$uitgevoerd, &$cel, &$diagonaal) {
 
 //Als een letter gevonden is, wordt uitgevoerd een groter gemaakt, 
 //waardoor er naar de voglende volgende letter kan worden gezocht.
-//Als de laatste letter gezocht is, is het einde bereikt en wordt einde = 1.
+//Als de laatste letter gezochtgevonden is, is het einde bereikt en wordt einde = 1.
 function uitvoeringen(&$uitgevoerd, &$herhalingen, &$einde) {
     global $uitgevoerd, $herhalingen, $einde;
 
@@ -397,7 +397,7 @@ if ($diagonaal == 1) {
     zoek_diagonaal2($regel, $aantal_regels, $kolom);
 }
 
-//Het woord wordt omgedraaid en worrdt nog een keer gezocht,
+//Het woord wordt omgedraaid en wordt nog een keer gezocht,
 //zodat ook de andere kant op gezocht wordt:
 $zoek = strrev($zoek);
 $herhalingen = strlen($zoek);
@@ -415,9 +415,8 @@ if ($diagonaal == 1) {
     zoek_diagonaal2($regel, $aantal_regels, $kolom);
 }
 
-//Er wordt alleen gekleurd als één van de zoekrichtingen aan staat:
+//Er wordt alleen gekleurd als tenminste één van de zoekrichtingen aan staat:
 if ($horizontaal == 0 and $verticaal == 0 and $diagonaal == 0){
-    return;
 }
 else{
 kleuren($a_gevonden, $done, $cel, $zoek, $einde);

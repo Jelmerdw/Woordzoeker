@@ -16,7 +16,7 @@ $_SESSION["diagonaal"] = 1;
             $(document).ready(function ()
             {
 
-                // Laadt het php zoek-script voor mouse-over van het woord waarover je muis is:
+                // Laadt het php zoek-script voor mouse-over van het woord waarover je muis gaat:
                 $("p").mouseenter(function () {
                     var Class = $(this).attr("class");
 
@@ -32,7 +32,7 @@ $_SESSION["diagonaal"] = 1;
 
                     var Class2 = 'zoeker_klik.php?keuze=' + Class + ''
 
-                    // Als het woord al gekleurd was, wordt het weer ontkleurd, zoniet dan wordt het gekleurd:
+                    // Als het woord al gekleurd was, wordt het weer ontkleurd, zo niet dan wordt het gekleurd:
                     if ($('#woord' + Class + '').length) {
                         $('#woord' + Class + '').remove();
                     }
@@ -56,7 +56,7 @@ $_SESSION["diagonaal"] = 1;
                     $('#loading_spinner').hide();
                 });
 
-                // Als de horizontaal, verticaal of diagonaal wordt uitgevinkt wordt deze zoekmethode uitgezet:
+                // Als horizontaal, verticaal of diagonaal wordt uitgevinkt wordt deze zoekmethode uitgezet:
                 $('#horizontaal').change(function () {
                     $("#div_loader").load('horizontaal.php');
                 });
@@ -104,10 +104,10 @@ $_SESSION["diagonaal"] = 1;
                         exit();
                     }
 
-                    //De bestandsnaar wordt tijdelijk opgeslagen:
+                    //De bestandsnaam wordt tijdelijk opgeslagen:
                     $fileName = $_FILES['file']['tmp_name'];
 
-                    //Bericht wanneer het bestand niet geopend kond worden:
+                    //Bericht wanneer het bestand niet geopend kon worden:
                     $file = fopen($fileName, "r") or exit("Het bestand kon niet geopend worden. Probeer het opnieuw.");
 
 

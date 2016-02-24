@@ -40,7 +40,7 @@ class StackTest extends PHPUnit_Framework_TestCase {
     
     //Deze volgede twee tests geven een failure, omdat in de functie global staat. 
     //Als je in de funcitie global even uit zet, krijgen we geen failure meer, 
-    //maar dan werkt de funcitie in ons programma niet goed meer:
+    //maar dan werkt de functie in ons programma niet goed meer:
     function test_uitvoeringen1() {
         $u = 0;
         $h = 1;
